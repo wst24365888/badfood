@@ -12,14 +12,14 @@ import 'package:flutter/services.dart';
 import 'package:badfood/controllers/color_theme_controller.dart';
 import 'package:get/get.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key key}) : super(key: key);
+class MainScreen extends StatefulWidget {
+  const MainScreen({Key key}) : super(key: key);
 
   @override
-  MainPageState createState() => MainPageState();
+  MainScreenState createState() => MainScreenState();
 }
 
-class MainPageState extends State<MainPage> {
+class MainScreenState extends State<MainScreen> {
   final NavigatorController _navigatorController =
       Get.put(NavigatorController());
   final ColorThemeController _colorThemeController =

@@ -5,7 +5,7 @@ import 'package:badfood/models/user_report_history.dart';
 import 'package:badfood/services/get_all_reports_by_user.dart';
 import 'package:badfood/services/get_user_info.dart';
 import 'package:badfood/widgets/wave_widget.dart';
-import 'package:badfood/views/main_page.dart';
+import 'package:badfood/views/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badfood/controllers/color_theme_controller.dart';
 import 'package:get/get.dart';
@@ -223,7 +223,7 @@ class AuthWrapperState extends State<AuthWrapper> {
                                     _userInfoController.reportCount =
                                         userReportHistory.data.length;
 
-                                    Get.to(() => const MainPage());
+                                    Get.to(() => const MainScreen());
                                   },
                                 ),
                               ),
