@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    Fore more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  -->
+  <base href="/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="badfood">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=<API_KEY_HERE>"></script>
+
+  <title>badfood</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<style>
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes loader {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
+  }
+  
+  .loader > div > div {
+    transform-origin: 100px 100px;
+    animation: loader 3.0303030303030303s linear infinite;
+    opacity: 0.8
+  }
+
+  .loader > div > div > div {
+    position: absolute;
+    left: 30px;
+    top: 30px;
+    width: 70px;
+    height: 70px;
+    border-radius: 70px 0 0 0;
+    transform-origin: 100px 100px
+  }
+  
+  .loader > div div:nth-child(1) {
+    animation-duration: 0.7575757575757576s
+  }
+
+  .loader > div div:nth-child(1) > div {
+    background: #ffefc3;
+    transform: rotate(0deg);
+  }
+  
+  .loader > div div:nth-child(2) {
+    animation-duration: 1.0101010101010102s
+  }
+
+  .loader > div div:nth-child(2) > div {
+    background: #ffd166;
+    transform: rotate(0deg);
+  }
+  
+  .loader > div div:nth-child(3) {
+    animation-duration: 1.5151515151515151s
+  }
+  
+  .loader > div div:nth-child(3) > div {
+    background: #26547c;
+    transform: rotate(0deg);
+  }
+  .loader > div div:nth-child(4) {
+    animation-duration: 3.0303030303030303s
+  }
+
+  .loader > div div:nth-child(4) > div {
+    background: #ef476f;
+    transform: rotate(0deg);
+  }
+
+  .loading {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  .loader {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0; /* see note above */
+  }
+
+  .loader div { box-sizing: content-box; }
+</style>
+<body>
+  <!-- This script installs service_worker.js to provide PWA functionality to
+       application. For more information, see:
+       https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <div class="loading">
+    <div class="loader">
+        <div><div><div></div></div><div><div></div></div><div><div></div></div><div><div></div></div></div>
+    </div>
+  </div>  
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js');
+      });
+    }
+  </script>
+  <!-- Firebase Configuration -->
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.9/firebase-auth.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "...",
+      authDomain: "[YOUR_PROJECT].firebaseapp.com",
+      databaseURL: "https://[YOUR_PROJECT].firebaseio.com",
+      projectId: "[YOUR_PROJECT]",
+      storageBucket: "[YOUR_PROJECT].appspot.com",
+      messagingSenderId: "...",
+      appId: "1:...:web:...",
+      measurementId: "G-...",
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  <script src="main.dart.js" type="application/javascript"></script>
+</body>
+</html>
