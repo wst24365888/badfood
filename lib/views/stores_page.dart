@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 import 'package:badfood/controllers/map_page_controller.dart';
-import 'package:badfood/controllers/navigator_controller.dart';
+import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/models/reported_stores.dart';
 import 'package:badfood/services/get_county_names.dart';
@@ -308,10 +308,10 @@ class StoresPageState extends State<StoresPage> {
                                                         ),
                                                       );
 
-                                                      final NavigatorController
+                                                      final MainScreenController
                                                           navigatorController =
                                                           Get.find<
-                                                              NavigatorController>();
+                                                              MainScreenController>();
                                                       navigatorController
                                                           .currentPage = 2;
 
@@ -350,10 +350,10 @@ class StoresPageState extends State<StoresPage> {
                                                               .text =
                                                           storeData.name;
 
-                                                      final NavigatorController
+                                                      final MainScreenController
                                                           navigatorController =
                                                           Get.find<
-                                                              NavigatorController>();
+                                                              MainScreenController>();
                                                       navigatorController
                                                           .currentPage = 0;
 

@@ -1,4 +1,4 @@
-import 'package:badfood/controllers/navigator_controller.dart';
+import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/views/map_page.dart';
 import 'package:badfood/views/person_page.dart';
 import 'package:badfood/views/stores_page.dart';
@@ -20,8 +20,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class MainScreenState extends State<MainScreen> {
-  final NavigatorController _navigatorController =
-      Get.put(NavigatorController());
+  final MainScreenController _navigatorController =
+      Get.put(MainScreenController());
   final ColorThemeController _colorThemeController =
       Get.find<ColorThemeController>();
 

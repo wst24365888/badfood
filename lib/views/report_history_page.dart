@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 import 'package:badfood/controllers/map_page_controller.dart';
-import 'package:badfood/controllers/navigator_controller.dart';
+import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/models/user_report_history.dart';
 import 'package:badfood/services/get_all_reports_by_user.dart';
@@ -219,10 +219,10 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                                               ),
                                                             );
 
-                                                            final NavigatorController
+                                                            final MainScreenController
                                                                 navigatorController =
                                                                 Get.find<
-                                                                    NavigatorController>();
+                                                                    MainScreenController>();
                                                             navigatorController
                                                                 .currentPage = 2;
 
@@ -271,10 +271,10 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                                                 storeDataAndPlace
                                                                     .place.name;
 
-                                                            final NavigatorController
+                                                            final MainScreenController
                                                                 navigatorController =
                                                                 Get.find<
-                                                                    NavigatorController>();
+                                                                    MainScreenController>();
                                                             navigatorController
                                                                 .currentPage = 0;
 

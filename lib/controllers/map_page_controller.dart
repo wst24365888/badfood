@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:badfood/controllers/navigator_controller.dart';
+import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/services/get_marker_icon.dart';
 import 'package:badfood/services/get_nearby_stores.dart';
@@ -192,8 +192,8 @@ class MapPageController extends GetxController {
                             reportFormController.placeController.text =
                                 storeData.name;
 
-                            final NavigatorController navigatorController =
-                                Get.find<NavigatorController>();
+                            final MainScreenController navigatorController =
+                                Get.find<MainScreenController>();
                             navigatorController.currentPage = 0;
 
                             Navigator.pop(context);
