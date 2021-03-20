@@ -109,19 +109,24 @@ class MainScreenState extends State<MainScreen>
           ),
         ),
       ),
-      webUI: Scaffold(
-        resizeToAvoidBottomInset: false, // Prevent Keyboard Overflow
-        body: Container(
-          color: Colors.black,
-          child: const Center(
-            child: Text(
-              "Web UI",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 60,
-                fontWeight: FontWeight.w200,
-              ),
-            ),
+      webUI: Obx(
+        () => Scaffold(
+          appBar: _mainScreenController.isLoading
+              ? IndicatorAppBar(
+                  height: 10,
+                  backgroundColor: _colorThemeController.colorTheme.color4,
+                  initialIndicatorColor:
+                      _colorThemeController.colorTheme.color5,
+                  // endIndicatorColor: Colors.blue,
+                )
+              : AppBar(
+                  toolbarHeight: 10,
+                  backgroundColor: _colorThemeController.colorTheme.color4,
+                  elevation: 0,
+                ),
+          body: IndexedStack(
+            index: _mainScreenController.currentPage,
+            children: _pages,
           ),
         ),
       ),
