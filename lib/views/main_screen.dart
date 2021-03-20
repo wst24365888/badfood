@@ -45,7 +45,7 @@ class MainScreenState extends State<MainScreen>
         () => Scaffold(
           appBar: _mainScreenController.isLoading
               ? IndicatorAppBar(
-                  height: 10,
+                  indicatorHeight: 10,
                   backgroundColor: _colorThemeController.colorTheme.color4,
                   initialIndicatorColor:
                       _colorThemeController.colorTheme.color5,
@@ -109,19 +109,176 @@ class MainScreenState extends State<MainScreen>
           ),
         ),
       ),
-      webUI: Scaffold(
-        resizeToAvoidBottomInset: false, // Prevent Keyboard Overflow
-        body: Container(
-          color: Colors.black,
-          child: const Center(
-            child: Text(
-              "Web UI",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 60,
-                fontWeight: FontWeight.w200,
-              ),
-            ),
+      webUI: Obx(
+        () => Scaffold(
+          appBar: _mainScreenController.isLoading
+              ? IndicatorAppBar(
+                  toolBarHeight: 100,
+                  indicatorHeight: 10,
+                  backgroundColor: _colorThemeController.colorTheme.color4,
+                  initialIndicatorColor:
+                      _colorThemeController.colorTheme.color5,
+                  child: Row(
+                    children: [
+                      Container(
+                        color: _colorThemeController.colorTheme.color4,
+                        width: 250,
+                        height: double.infinity,
+                        child: const Center(
+                          child: Text(
+                            "Badfood",
+                            style: TextStyle(
+                              fontSize: 36,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: 100,
+                          child: GNav(
+                            backgroundColor:
+                                _colorThemeController.colorTheme.color4,
+                            tabBackgroundColor:
+                                _colorThemeController.colorTheme.color5,
+                            color: Colors.white70,
+                            activeColor: Colors.black,
+                            hoverColor: Colors.grey[400],
+                            gap: 8,
+                            tabBorderRadius: 50,
+                            duration: const Duration(milliseconds: 750),
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            selectedIndex: _mainScreenController.currentPage,
+                            onTabChange: (int _selectedIndex) {
+                              _mainScreenController.currentPage =
+                                  _selectedIndex;
+                              // debugPrint("Current Page: $_selectedIndex");
+                            },
+                            tabs: const [
+                              GButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                icon: LineIcons.exclamation,
+                                text: 'Report',
+                              ),
+                              GButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                icon: LineIcons.store,
+                                text: 'Stores',
+                              ),
+                              GButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                icon: LineIcons.mapMarked,
+                                text: 'Map',
+                              ),
+                              // GButton(
+                              //   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                              //   icon: LineIcons.bullhorn,
+                              //   text: 'Notifications',
+                              // ),
+                              GButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                icon: LineIcons.user,
+                                text: 'Person',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // endIndicatorColor: Colors.blue,
+                )
+              : IndicatorAppBar(
+                  toolBarHeight: 100,
+                  indicatorHeight: 10,
+                  backgroundColor: _colorThemeController.colorTheme.color4,
+                  initialIndicatorColor:
+                      _colorThemeController.colorTheme.color4,
+                  child: Row(
+                    children: [
+                      Container(
+                        color: _colorThemeController.colorTheme.color4,
+                        width: 250,
+                        height: double.infinity,
+                        child: const Center(
+                          child: Text(
+                            "Badfood",
+                            style: TextStyle(
+                              fontSize: 36,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: 100,
+                          child: GNav(
+                            backgroundColor:
+                                _colorThemeController.colorTheme.color4,
+                            tabBackgroundColor:
+                                _colorThemeController.colorTheme.color5,
+                            color: Colors.white70,
+                            activeColor: Colors.black,
+                            hoverColor: Colors.grey[400],
+                            gap: 8,
+                            tabBorderRadius: 50,
+                            duration: const Duration(milliseconds: 750),
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            selectedIndex: _mainScreenController.currentPage,
+                            onTabChange: (int _selectedIndex) {
+                              _mainScreenController.currentPage =
+                                  _selectedIndex;
+                              // debugPrint("Current Page: $_selectedIndex");
+                            },
+                            tabs: const [
+                              GButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                icon: LineIcons.exclamation,
+                                text: 'Report',
+                              ),
+                              GButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                icon: LineIcons.store,
+                                text: 'Stores',
+                              ),
+                              GButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                icon: LineIcons.mapMarked,
+                                text: 'Map',
+                              ),
+                              // GButton(
+                              //   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                              //   icon: LineIcons.bullhorn,
+                              //   text: 'Notifications',
+                              // ),
+                              GButton(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 15),
+                                icon: LineIcons.user,
+                                text: 'Person',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  // endIndicatorColor: Colors.blue,
+                ),
+          body: IndexedStack(
+            index: _mainScreenController.currentPage,
+            children: _pages,
           ),
         ),
       ),

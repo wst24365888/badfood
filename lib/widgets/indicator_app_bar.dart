@@ -1,31 +1,49 @@
 import 'package:flutter/material.dart';
 
 class IndicatorAppBar extends PreferredSize {
-  final double height;
+  final double toolBarHeight;
+  @override
+  // ignore: overridden_fields
+  final Widget child;
+  final double indicatorHeight;
   final Color backgroundColor;
   final Color initialIndicatorColor;
   final Color endIndicatorColor;
 
   const IndicatorAppBar({
-    this.height = kToolbarHeight,
+    this.toolBarHeight,
+    this.child,
+    this.indicatorHeight = kToolbarHeight,
     @required this.backgroundColor,
     @required this.initialIndicatorColor,
     this.endIndicatorColor,
   });
 
   @override
-  Size get preferredSize => Size.fromHeight(height);
+  Size get preferredSize => Size.fromHeight(toolBarHeight ?? indicatorHeight);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: preferredSize.height,
-      child: Indicator(
-        height: height,
-        backgroundColor: backgroundColor,
-        initialIndicatorColor: initialIndicatorColor,
-        endIndicatorColor: endIndicatorColor,
-      ),
+      child: toolBarHeight == null
+          ? Indicator(
+              height: indicatorHeight,
+              backgroundColor: backgroundColor,
+              initialIndicatorColor: initialIndicatorColor,
+              endIndicatorColor: endIndicatorColor,
+            )
+          : Stack(
+              children: [
+                child,
+                Indicator(
+                  height: indicatorHeight,
+                  backgroundColor: backgroundColor,
+                  initialIndicatorColor: initialIndicatorColor,
+                  endIndicatorColor: endIndicatorColor,
+                ),
+              ],
+            ),
     );
   }
 }
