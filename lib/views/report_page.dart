@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math' as math;
+import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/user_info_controller.dart';
 import 'package:badfood/services/get_predict_place.dart';
 import 'package:badfood/services/submit_new_report.dart';
@@ -27,6 +28,8 @@ class ReportPageState extends State<ReportPage> {
       Get.find<ColorThemeController>();
   final ReportFormController _reportFormController =
       Get.find<ReportFormController>();
+  final MainScreenController _mainScreenController =
+      Get.find<MainScreenController>();
 
   final _scrollController = ScrollController();
 
@@ -52,6 +55,8 @@ class ReportPageState extends State<ReportPage> {
     _photos = [
       GestureDetector(
         onTap: () async {
+          _mainScreenController.isLoading = true;
+
           final _pickedPhoto =
               await _imagePicker.getImage(source: ImageSource.gallery);
 
@@ -67,6 +72,8 @@ class ReportPageState extends State<ReportPage> {
               }
             }
           });
+
+          _mainScreenController.isLoading = false;
         },
         child: Container(
           height: 80,
@@ -1103,6 +1110,8 @@ class ReportPageState extends State<ReportPage> {
                                                 .colorTheme.color4),
                                   ),
                                   onPressed: () async {
+                                    _mainScreenController.isLoading = true;
+
                                     if (_reportFormController.titleError ||
                                         _reportFormController
                                             .reportForm.titleText.isEmpty) {
@@ -1113,6 +1122,8 @@ class ReportPageState extends State<ReportPage> {
                                           "Please complete the title field.",
                                         ),
                                       );
+
+                                      _mainScreenController.isLoading = false;
 
                                       return;
                                     } else if (_reportFormController
@@ -1125,6 +1136,8 @@ class ReportPageState extends State<ReportPage> {
                                         ),
                                       );
 
+                                      _mainScreenController.isLoading = false;
+
                                       return;
                                     } else if (_reportFormController
                                         .reportForm.timeText.isEmpty) {
@@ -1135,6 +1148,8 @@ class ReportPageState extends State<ReportPage> {
                                           "Please complete the occur time.",
                                         ),
                                       );
+
+                                      _mainScreenController.isLoading = false;
 
                                       return;
                                     } else if (_reportFormController
@@ -1151,6 +1166,8 @@ class ReportPageState extends State<ReportPage> {
                                         ),
                                       );
 
+                                      _mainScreenController.isLoading = false;
+
                                       return;
                                     } else if (_reportFormController
                                             .symptomError ||
@@ -1163,6 +1180,8 @@ class ReportPageState extends State<ReportPage> {
                                           "Please complete the symptom field.",
                                         ),
                                       );
+
+                                      _mainScreenController.isLoading = false;
 
                                       return;
                                     }
@@ -1191,6 +1210,8 @@ class ReportPageState extends State<ReportPage> {
                                           "Thanks for your report.",
                                         ),
                                       );
+
+                                      _mainScreenController.isLoading = false;
                                     } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -1200,6 +1221,8 @@ class ReportPageState extends State<ReportPage> {
                                           "Submit failed due to \"$submitLog \".",
                                         ),
                                       );
+
+                                      _mainScreenController.isLoading = false;
 
                                       return;
                                     }

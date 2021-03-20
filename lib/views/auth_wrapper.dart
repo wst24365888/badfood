@@ -4,8 +4,9 @@ import 'package:badfood/models/backend_user_info.dart';
 import 'package:badfood/models/user_report_history.dart';
 import 'package:badfood/services/get_all_reports_by_user.dart';
 import 'package:badfood/services/get_user_info.dart';
+import 'package:badfood/widgets/indicator_app_bar.dart';
 import 'package:badfood/widgets/wave_widget.dart';
-import 'package:badfood/views/main_page.dart';
+import 'package:badfood/views/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badfood/controllers/color_theme_controller.dart';
 import 'package:get/get.dart';
@@ -28,12 +29,26 @@ class AuthWrapperState extends State<AuthWrapper> {
   final _userInfoController = Get.put(UserInfoController());
   final _colorThemeController = Get.put(ColorThemeController());
 
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     return Scaffold(
       resizeToAvoidBottomInset: false, // Prevent Keyboard Overflow
+      appBar: _isLoading
+          ? IndicatorAppBar(
+              height: 10,
+              backgroundColor: _colorThemeController.colorTheme.color4,
+              initialIndicatorColor: _colorThemeController.colorTheme.color5,
+              // endIndicatorColor: Colors.blue,
+            )
+          : AppBar(
+              toolbarHeight: 10,
+              backgroundColor: _colorThemeController.colorTheme.color4,
+              elevation: 0,
+            ),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return Obx(
@@ -194,6 +209,10 @@ class AuthWrapperState extends State<AuthWrapper> {
                                     ),
                                   ),
                                   onPressed: () async {
+                                    setState(() {
+                                      _isLoading = true;
+                                    });
+
                                     final UserCredential userCredential = kIsWeb
                                         ? await auth_web.signInWithGoogle()
                                         : await auth_native.signInWithGoogle();
@@ -223,7 +242,11 @@ class AuthWrapperState extends State<AuthWrapper> {
                                     _userInfoController.reportCount =
                                         userReportHistory.data.length;
 
-                                    Get.to(() => const MainPage());
+                                    setState(() {
+                                      _isLoading = false;
+                                    });
+
+                                    Get.to(() => const MainScreen());
                                   },
                                 ),
                               ),

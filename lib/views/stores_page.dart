@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 import 'package:badfood/controllers/map_page_controller.dart';
-import 'package:badfood/controllers/navigator_controller.dart';
+import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/models/reported_stores.dart';
 import 'package:badfood/services/get_county_names.dart';
@@ -23,6 +23,8 @@ class StoresPage extends StatefulWidget {
 class StoresPageState extends State<StoresPage> {
   final ColorThemeController _colorThemeController =
       Get.find<ColorThemeController>();
+  final MainScreenController _mainScreenController =
+      Get.find<MainScreenController>();
 
   final List<DropdownMenuItem> _countyNameList = [];
   ReportedStores _reportedStores = ReportedStores();
@@ -169,6 +171,8 @@ class StoresPageState extends State<StoresPage> {
                         child: DropdownButton(
                           value: _cityName,
                           onChanged: (cityName) async {
+                            _mainScreenController.isLoading = true;
+
                             setState(() {
                               _cityName = cityName.toString();
                             });
@@ -179,6 +183,8 @@ class StoresPageState extends State<StoresPage> {
                                 _reportedStores = reportedStores;
                               });
                             });
+
+                            _mainScreenController.isLoading = false;
                           },
                           hint: const Text(
                             "County",
@@ -308,11 +314,7 @@ class StoresPageState extends State<StoresPage> {
                                                         ),
                                                       );
 
-                                                      final NavigatorController
-                                                          navigatorController =
-                                                          Get.find<
-                                                              NavigatorController>();
-                                                      navigatorController
+                                                      _mainScreenController
                                                           .currentPage = 2;
 
                                                       Navigator.pop(context);
@@ -350,11 +352,7 @@ class StoresPageState extends State<StoresPage> {
                                                               .text =
                                                           storeData.name;
 
-                                                      final NavigatorController
-                                                          navigatorController =
-                                                          Get.find<
-                                                              NavigatorController>();
-                                                      navigatorController
+                                                      _mainScreenController
                                                           .currentPage = 0;
 
                                                       Navigator.pop(context);

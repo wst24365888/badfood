@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:badfood/controllers/navigator_controller.dart';
+import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/services/get_marker_icon.dart';
 import 'package:badfood/services/get_nearby_stores.dart';
@@ -192,9 +192,9 @@ class MapPageController extends GetxController {
                             reportFormController.placeController.text =
                                 storeData.name;
 
-                            final NavigatorController navigatorController =
-                                Get.find<NavigatorController>();
-                            navigatorController.currentPage = 0;
+                            final MainScreenController mainScreenController =
+                                Get.find<MainScreenController>();
+                            mainScreenController.currentPage = 0;
 
                             Navigator.pop(context);
                           },
@@ -228,15 +228,18 @@ class MapPageController extends GetxController {
   }) async {
     _mapController ??= controller;
 
+    LatLng _location;
+
     if (location == null) {
       final LocationData currentLocationData = await getLocation();
-      // ignore: parameter_assignments
-      location =
+      _location =
           LatLng(currentLocationData.latitude, currentLocationData.longitude);
+    } else {
+      _location = location;
     }
 
     final CameraPosition cameraPosition = CameraPosition(
-      target: LatLng(location.latitude, location.longitude),
+      target: LatLng(_location.latitude, _location.longitude),
       zoom: zoom,
     );
 
