@@ -233,9 +233,9 @@ class StoresPageState extends State<StoresPage> {
                       // Reported Store List
                       if (_reportedStores.data == null ||
                           _reportedStores.data.isEmpty)
-                        const SizedBox(
-                          height: 600,
-                          child: Center(
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height - 450,
+                          child: const Center(
                             child: Text(
                               "No data available.",
                               style: TextStyle(

@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:badfood/controllers/user_info_controller.dart';
 import 'package:badfood/views/report_history_page.dart';
+import 'package:badfood/views/support_page.dart';
 import 'package:badfood/widgets/wave_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:badfood/controllers/color_theme_controller.dart';
@@ -202,7 +203,7 @@ class PersonPageState extends State<PersonPage> {
                                                     width: double.infinity,
                                                   ),
                                                   Text(
-                                                    "Registered Days",
+                                                    "Registered\nDays",
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontSize: 18,
@@ -238,7 +239,7 @@ class PersonPageState extends State<PersonPage> {
                                                     width: double.infinity,
                                                   ),
                                                   Text(
-                                                    "Reported Times",
+                                                    "Reported\nTimes",
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       fontSize: 18,
@@ -374,6 +375,9 @@ class PersonPageState extends State<PersonPage> {
                       ),
 
                       GestureDetector(
+                        onTap: () {
+                          Get.to(() => const SupportPage());
+                        },
                         child: Container(
                           height: 125,
                           width: double.infinity,

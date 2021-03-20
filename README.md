@@ -13,3 +13,7 @@ Modify report history page to date-descending.
 ## ver-0.1.2
 
 New feature: loading indicator.
+
+## ver-0.1.3
+
+Add support page.
