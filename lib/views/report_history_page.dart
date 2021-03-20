@@ -4,6 +4,7 @@ import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/models/user_report_history.dart';
 import 'package:badfood/services/get_all_reports_by_user.dart';
+import 'package:badfood/widgets/indicator_app_bar.dart';
 import 'package:badfood/widgets/wave_widget.dart';
 import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,12 @@ class ReportHistoryPage extends StatefulWidget {
 }
 
 class ReportHistoryPageState extends State<ReportHistoryPage> {
-  final _colorThemeController = Get.find<ColorThemeController>();
+  final ColorThemeController _colorThemeController =
+      Get.find<ColorThemeController>();
 
   UserReportHistory _userReportHistory = UserReportHistory();
+
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -30,6 +34,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
     getAllReportsByUser().then((UserReportHistory userReportHistory) {
       setState(() {
         _userReportHistory = userReportHistory;
+        _isLoading = false;
       });
     });
   }
@@ -37,6 +42,18 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _isLoading
+          ? IndicatorAppBar(
+              height: 10,
+              backgroundColor: _colorThemeController.colorTheme.color4,
+              initialIndicatorColor: _colorThemeController.colorTheme.color5,
+              // endIndicatorColor: Colors.blue,
+            )
+          : AppBar(
+              toolbarHeight: 10,
+              backgroundColor: _colorThemeController.colorTheme.color4,
+              elevation: 0,
+            ),
       body: Obx(
         () => Scrollbar(
           child: SingleChildScrollView(
@@ -220,10 +237,10 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                                             );
 
                                                             final MainScreenController
-                                                                navigatorController =
+                                                                mainScreenController =
                                                                 Get.find<
                                                                     MainScreenController>();
-                                                            navigatorController
+                                                            mainScreenController
                                                                 .currentPage = 2;
 
                                                             Navigator.pop(
@@ -272,10 +289,10 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                                                     .place.name;
 
                                                             final MainScreenController
-                                                                navigatorController =
+                                                                mainScreenController =
                                                                 Get.find<
                                                                     MainScreenController>();
-                                                            navigatorController
+                                                            mainScreenController
                                                                 .currentPage = 0;
 
                                                             Navigator.pop(

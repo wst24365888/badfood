@@ -23,6 +23,8 @@ class StoresPage extends StatefulWidget {
 class StoresPageState extends State<StoresPage> {
   final ColorThemeController _colorThemeController =
       Get.find<ColorThemeController>();
+  final MainScreenController _mainScreenController =
+      Get.find<MainScreenController>();
 
   final List<DropdownMenuItem> _countyNameList = [];
   ReportedStores _reportedStores = ReportedStores();
@@ -169,6 +171,8 @@ class StoresPageState extends State<StoresPage> {
                         child: DropdownButton(
                           value: _cityName,
                           onChanged: (cityName) async {
+                            _mainScreenController.isLoading = true;
+
                             setState(() {
                               _cityName = cityName.toString();
                             });
@@ -179,6 +183,8 @@ class StoresPageState extends State<StoresPage> {
                                 _reportedStores = reportedStores;
                               });
                             });
+
+                            _mainScreenController.isLoading = false;
                           },
                           hint: const Text(
                             "County",
@@ -308,11 +314,7 @@ class StoresPageState extends State<StoresPage> {
                                                         ),
                                                       );
 
-                                                      final MainScreenController
-                                                          navigatorController =
-                                                          Get.find<
-                                                              MainScreenController>();
-                                                      navigatorController
+                                                      _mainScreenController
                                                           .currentPage = 2;
 
                                                       Navigator.pop(context);
@@ -350,11 +352,7 @@ class StoresPageState extends State<StoresPage> {
                                                               .text =
                                                           storeData.name;
 
-                                                      final MainScreenController
-                                                          navigatorController =
-                                                          Get.find<
-                                                              MainScreenController>();
-                                                      navigatorController
+                                                      _mainScreenController
                                                           .currentPage = 0;
 
                                                       Navigator.pop(context);

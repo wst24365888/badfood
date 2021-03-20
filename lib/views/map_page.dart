@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/map_page_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -17,6 +18,8 @@ class MapPageState extends State<MapPage> {
 
   final ColorThemeController _colorThemeController =
       Get.find<ColorThemeController>();
+  final MainScreenController _mainScreenController =
+      Get.find<MainScreenController>();
   final MapPageController _mapPageController = Get.put(MapPageController());
 
   static const CameraPosition _kGooglePlex = CameraPosition(
@@ -44,6 +47,8 @@ class MapPageState extends State<MapPage> {
           zoomControlsEnabled: false,
           initialCameraPosition: _kGooglePlex,
           onMapCreated: (GoogleMapController controller) async {
+            _mainScreenController.isLoading = true;
+
             _mapController.complete(controller);
 
             final GoogleMapController _tmpController =
@@ -51,6 +56,8 @@ class MapPageState extends State<MapPage> {
             await _mapPageController.locate(controller: _tmpController);
 
             await _mapPageController.resetMarkers(context);
+
+            _mainScreenController.isLoading = false;
           },
           onTap: (LatLng place) {},
         ),

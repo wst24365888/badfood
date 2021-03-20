@@ -2,6 +2,7 @@ import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/views/map_page.dart';
 import 'package:badfood/views/person_page.dart';
 import 'package:badfood/views/stores_page.dart';
+import 'package:badfood/widgets/indicator_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -19,8 +20,9 @@ class MainScreen extends StatefulWidget {
   MainScreenState createState() => MainScreenState();
 }
 
-class MainScreenState extends State<MainScreen> {
-  final MainScreenController _navigatorController =
+class MainScreenState extends State<MainScreen>
+    with SingleTickerProviderStateMixin {
+  final MainScreenController _mainScreenController =
       Get.put(MainScreenController());
   final ColorThemeController _colorThemeController =
       Get.find<ColorThemeController>();
@@ -41,8 +43,21 @@ class MainScreenState extends State<MainScreen> {
     final ResponsiveUI responsiveUI = ResponsiveUI(
       mobileUI: Obx(
         () => Scaffold(
+          appBar: _mainScreenController.isLoading
+              ? IndicatorAppBar(
+                  height: 10,
+                  backgroundColor: _colorThemeController.colorTheme.color4,
+                  initialIndicatorColor:
+                      _colorThemeController.colorTheme.color5,
+                  // endIndicatorColor: Colors.blue,
+                )
+              : AppBar(
+                  toolbarHeight: 10,
+                  backgroundColor: _colorThemeController.colorTheme.color4,
+                  elevation: 0,
+                ),
           body: IndexedStack(
-            index: _navigatorController.currentPage,
+            index: _mainScreenController.currentPage,
             children: _pages,
           ),
           bottomNavigationBar: Container(
@@ -58,9 +73,9 @@ class MainScreenState extends State<MainScreen> {
               tabBorderRadius: 50,
               duration: const Duration(milliseconds: 750),
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              selectedIndex: _navigatorController.currentPage,
+              selectedIndex: _mainScreenController.currentPage,
               onTabChange: (int _selectedIndex) {
-                _navigatorController.currentPage = _selectedIndex;
+                _mainScreenController.currentPage = _selectedIndex;
                 // debugPrint("Current Page: $_selectedIndex");
               },
               tabs: const [

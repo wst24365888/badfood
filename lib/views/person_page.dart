@@ -112,7 +112,7 @@ class PersonPageState extends State<PersonPage> {
                       ),
 
                       SizedBox(
-                        height: 338,
+                        height: 357,
                         child: Stack(
                           alignment: Alignment.topCenter,
                           children: [
@@ -266,6 +266,9 @@ class PersonPageState extends State<PersonPage> {
                                             ),
                                             const Spacer(),
                                           ],
+                                        ),
+                                        const SizedBox(
+                                          height: 24,
                                         ),
                                       ],
                                     )
