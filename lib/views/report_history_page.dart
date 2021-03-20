@@ -46,7 +46,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
       mobileUI: Scaffold(
         appBar: _isLoading
             ? IndicatorAppBar(
-                height: 10,
+                indicatorHeight: 10,
                 backgroundColor: _colorThemeController.colorTheme.color4,
                 initialIndicatorColor: _colorThemeController.colorTheme.color5,
                 // endIndicatorColor: Colors.blue,

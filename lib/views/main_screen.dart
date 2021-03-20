@@ -45,7 +45,7 @@ class MainScreenState extends State<MainScreen>
         () => Scaffold(
           appBar: _mainScreenController.isLoading
               ? IndicatorAppBar(
-                  height: 10,
+                  indicatorHeight: 10,
                   backgroundColor: _colorThemeController.colorTheme.color4,
                   initialIndicatorColor:
                       _colorThemeController.colorTheme.color5,
@@ -113,7 +113,7 @@ class MainScreenState extends State<MainScreen>
         () => Scaffold(
           appBar: _mainScreenController.isLoading
               ? IndicatorAppBar(
-                  height: 10,
+                  indicatorHeight: 10,
                   backgroundColor: _colorThemeController.colorTheme.color4,
                   initialIndicatorColor:
                       _colorThemeController.colorTheme.color5,

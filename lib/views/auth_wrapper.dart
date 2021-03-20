@@ -39,7 +39,7 @@ class AuthWrapperState extends State<AuthWrapper> {
       resizeToAvoidBottomInset: false, // Prevent Keyboard Overflow
       appBar: _isLoading
           ? IndicatorAppBar(
-              height: 10,
+              indicatorHeight: 10,
               backgroundColor: _colorThemeController.colorTheme.color4,
               initialIndicatorColor: _colorThemeController.colorTheme.color5,
               // endIndicatorColor: Colors.blue,
