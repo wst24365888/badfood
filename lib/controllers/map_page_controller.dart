@@ -3,7 +3,6 @@ import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/services/get_marker_icon.dart';
 import 'package:badfood/services/get_nearby_stores.dart';
-import 'package:badfood/widgets/no_scrollbar.dart';
 import 'package:expansion_card/expansion_card.dart';
 import 'package:location/location.dart';
 import 'package:badfood/services/get_location.dart';
@@ -137,36 +136,37 @@ class MapPageController extends GetxController {
                                       horizontal: 12,
                                       vertical: 8,
                                     ),
-                                    child: NoScrollbar(
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 24),
-                                              width: 165,
-                                              child: Text(
-                                                report.happenedAt,
-                                                textAlign: TextAlign.left,
-                                              ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Expanded(
+                                          flex: 5,
+                                          child: Container(
+                                            margin:
+                                                const EdgeInsets.only(left: 24),
+                                            child: Text(
+                                              report.happenedAt,
+                                              textAlign: TextAlign.left,
+                                              overflow: TextOverflow.ellipsis,
                                             ),
-                                            const SizedBox(
-                                              width: 36,
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  right: 24),
-                                              child: Text(
-                                                report.title,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
+                                        const SizedBox(
+                                          width: 36,
+                                        ),
+                                        Expanded(
+                                          flex: 5,
+                                          child: Container(
+                                            margin: const EdgeInsets.only(
+                                                right: 24),
+                                            child: Text(
+                                              report.title,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   );
                                 })
