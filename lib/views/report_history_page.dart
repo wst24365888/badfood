@@ -529,7 +529,6 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                                   2;
 
                                               Navigator.pop(context);
-                                              Navigator.pop(context);
                                             },
                                             child: const Center(
                                               child: Text(
@@ -569,7 +568,6 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                               mainScreenController.currentPage =
                                                   0;
 
-                                              Navigator.pop(context);
                                               Navigator.pop(context);
                                             },
                                             child: const Center(

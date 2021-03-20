@@ -147,7 +147,7 @@ class MapPageController extends GetxController {
                                                 const EdgeInsets.only(left: 24),
                                             child: Text(
                                               report.happenedAt,
-                                              textAlign: TextAlign.left,
+                                              textAlign: TextAlign.center,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
@@ -162,6 +162,7 @@ class MapPageController extends GetxController {
                                                 right: 24),
                                             child: Text(
                                               report.title,
+                                              textAlign: TextAlign.center,
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ),

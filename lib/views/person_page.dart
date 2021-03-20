@@ -479,7 +479,7 @@ class PersonPageState extends State<PersonPage> {
                       children: [
                         // Fixed Spacer
                         const SizedBox(
-                          height: 48,
+                          height: 12,
                         ),
 
                         Row(
