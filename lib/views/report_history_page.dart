@@ -42,6 +42,207 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final Widget mainComponemt = (_userReportHistory.data == null ||
+            _userReportHistory.data.isEmpty)
+        ? const SizedBox(
+            height: 600,
+            child: Center(
+              child: Text(
+                "No data available.",
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          )
+        : Column(
+            children: _userReportHistory.data
+                .map((StoreDataAndPlace storeDataAndPlace) {
+                  return Container(
+                    padding: const EdgeInsets.only(
+                      left: 24,
+                      right: 24,
+                      top: 24,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey[300],
+                            spreadRadius: 1,
+                            blurRadius: 3,
+                            offset: const Offset(3, 3),
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: GestureDetector(
+                        onLongPress: () async {
+                          await showModalBottomSheet(
+                            elevation: 10.0,
+                            barrierColor: Colors.black.withOpacity(0.5),
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(45.0),
+                                topRight: Radius.circular(45.0),
+                              ),
+                            ),
+                            isScrollControlled:
+                                true, // won't scroll when keyboard came out if isScrollControlled is set to false
+                            context: context,
+                            builder: (context) => SingleChildScrollView(
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Color(0xff2394b0),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(45.0),
+                                    topRight: Radius.circular(45.0),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 72,
+                                        color: const Color(0xff2394b0),
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            final MapPageController
+                                                mapPageController =
+                                                Get.find<MapPageController>();
+                                            await mapPageController.locate(
+                                              location: LatLng(
+                                                storeDataAndPlace
+                                                    .place.location.lat,
+                                                storeDataAndPlace
+                                                    .place.location.lng,
+                                              ),
+                                            );
+
+                                            final MainScreenController
+                                                mainScreenController = Get.find<
+                                                    MainScreenController>();
+                                            mainScreenController.currentPage =
+                                                2;
+
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Center(
+                                            child: Text(
+                                              "CLICK HERE LOCATE",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 72,
+                                        color: _colorThemeController
+                                            .colorTheme.color4,
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            final ReportFormController
+                                                reportFormController = Get.find<
+                                                    ReportFormController>();
+                                            reportFormController
+                                                    .reportForm.placeText =
+                                                storeDataAndPlace.place.name;
+                                            reportFormController
+                                                    .reportForm.placeID =
+                                                storeDataAndPlace.place.placeId;
+                                            reportFormController
+                                                    .placeController.text =
+                                                storeDataAndPlace.place.name;
+
+                                            final MainScreenController
+                                                mainScreenController = Get.find<
+                                                    MainScreenController>();
+                                            mainScreenController.currentPage =
+                                                0;
+
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Center(
+                                            child: Text(
+                                              "CLICK HERE TO REPORT THE STORE",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        child: ExpansionCard(
+                          background: Container(
+                            height: 280,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage("assets/food.gif"),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          leading: const Icon(
+                            Icons.warning_rounded,
+                            size: 64,
+                            color: Colors.orange,
+                          ),
+                          title: Container(
+                            margin: const EdgeInsets.only(left: 12, top: 12),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  storeDataAndPlace.title,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color:
+                                        _colorThemeController.colorTheme.color1,
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                // Fixed Spacing
+                                const SizedBox(
+                                  height: 12,
+                                ),
+                                Text(
+                                  storeDataAndPlace.happenedAt,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    color:
+                                        _colorThemeController.colorTheme.color1,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          children: <Widget>[
+                            const SizedBox(
+                              height: 12,
+                            ),
+                            Text("Place: ${storeDataAndPlace.place.name}"),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                })
+                .toList()
+                .reversed
+                .toList(),
+          );
+
     final ResponsiveUI responsiveUI = ResponsiveUI(
       mobileUI: Scaffold(
         appBar: _isLoading
@@ -148,263 +349,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                           ),
 
                           // Reported Store List
-                          if (_userReportHistory.data == null ||
-                              _userReportHistory.data.isEmpty)
-                            const SizedBox(
-                              height: 600,
-                              child: Center(
-                                child: Text(
-                                  "No data available.",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            )
-                          else
-                            Column(
-                              children: _userReportHistory.data
-                                  .map((StoreDataAndPlace storeDataAndPlace) {
-                                    return Container(
-                                      padding: const EdgeInsets.only(
-                                        left: 24,
-                                        right: 24,
-                                        top: 24,
-                                      ),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey[300],
-                                              spreadRadius: 1,
-                                              blurRadius: 3,
-                                              offset: const Offset(3, 3),
-                                            ),
-                                          ],
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                        ),
-                                        child: GestureDetector(
-                                          onLongPress: () async {
-                                            await showModalBottomSheet(
-                                              elevation: 10.0,
-                                              barrierColor:
-                                                  Colors.black.withOpacity(0.5),
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft:
-                                                      Radius.circular(45.0),
-                                                  topRight:
-                                                      Radius.circular(45.0),
-                                                ),
-                                              ),
-                                              isScrollControlled:
-                                                  true, // won't scroll when keyboard came out if isScrollControlled is set to false
-                                              context: context,
-                                              builder: (context) =>
-                                                  SingleChildScrollView(
-                                                child: Container(
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                    color: Color(0xff2394b0),
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                      topLeft:
-                                                          Radius.circular(45.0),
-                                                      topRight:
-                                                          Radius.circular(45.0),
-                                                    ),
-                                                  ),
-                                                  child: Center(
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          height: 72,
-                                                          color: const Color(
-                                                              0xff2394b0),
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () async {
-                                                              final MapPageController
-                                                                  mapPageController =
-                                                                  Get.find<
-                                                                      MapPageController>();
-                                                              await mapPageController
-                                                                  .locate(
-                                                                location:
-                                                                    LatLng(
-                                                                  storeDataAndPlace
-                                                                      .place
-                                                                      .location
-                                                                      .lat,
-                                                                  storeDataAndPlace
-                                                                      .place
-                                                                      .location
-                                                                      .lng,
-                                                                ),
-                                                              );
-
-                                                              final MainScreenController
-                                                                  mainScreenController =
-                                                                  Get.find<
-                                                                      MainScreenController>();
-                                                              mainScreenController
-                                                                  .currentPage = 2;
-
-                                                              Navigator.pop(
-                                                                  context);
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: const Center(
-                                                              child: Text(
-                                                                "CLICK HERE LOCATE",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Container(
-                                                          height: 72,
-                                                          color:
-                                                              _colorThemeController
-                                                                  .colorTheme
-                                                                  .color4,
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () {
-                                                              final ReportFormController
-                                                                  reportFormController =
-                                                                  Get.find<
-                                                                      ReportFormController>();
-                                                              reportFormController
-                                                                      .reportForm
-                                                                      .placeText =
-                                                                  storeDataAndPlace
-                                                                      .place
-                                                                      .name;
-                                                              reportFormController
-                                                                      .reportForm
-                                                                      .placeID =
-                                                                  storeDataAndPlace
-                                                                      .place
-                                                                      .placeId;
-                                                              reportFormController
-                                                                      .placeController
-                                                                      .text =
-                                                                  storeDataAndPlace
-                                                                      .place
-                                                                      .name;
-
-                                                              final MainScreenController
-                                                                  mainScreenController =
-                                                                  Get.find<
-                                                                      MainScreenController>();
-                                                              mainScreenController
-                                                                  .currentPage = 0;
-
-                                                              Navigator.pop(
-                                                                  context);
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: const Center(
-                                                              child: Text(
-                                                                "CLICK HERE TO REPORT THE STORE",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                          child: ExpansionCard(
-                                            background: Container(
-                                              height: 280,
-                                              decoration: const BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: AssetImage(
-                                                      "assets/food.gif"),
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            leading: const Icon(
-                                              Icons.warning_rounded,
-                                              size: 64,
-                                              color: Colors.orange,
-                                            ),
-                                            title: Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 12, top: 12),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    storeDataAndPlace.title,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      color:
-                                                          _colorThemeController
-                                                              .colorTheme
-                                                              .color1,
-                                                      fontSize: 32,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                    ),
-                                                  ),
-                                                  // Fixed Spacing
-                                                  const SizedBox(
-                                                    height: 12,
-                                                  ),
-                                                  Text(
-                                                    storeDataAndPlace
-                                                        .happenedAt,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    style: TextStyle(
-                                                      color:
-                                                          _colorThemeController
-                                                              .colorTheme
-                                                              .color1,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            children: <Widget>[
-                                              const SizedBox(
-                                                height: 12,
-                                              ),
-                                              Text(
-                                                  "Place: ${storeDataAndPlace.place.name}"),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  })
-                                  .toList()
-                                  .reversed
-                                  .toList(),
-                            ),
+                          mainComponemt,
 
                           // Fixed Spacing
                           const SizedBox(
@@ -444,210 +389,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
           ),
         ),
       ),
-      webUI: (_userReportHistory.data == null ||
-              _userReportHistory.data.isEmpty)
-          ? const SizedBox(
-              height: 600,
-              child: Center(
-                child: Text(
-                  "No data available.",
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-            )
-          : Column(
-              children: _userReportHistory.data
-                  .map((StoreDataAndPlace storeDataAndPlace) {
-                    return Container(
-                      padding: const EdgeInsets.only(
-                        left: 24,
-                        right: 24,
-                        top: 24,
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey[300],
-                              spreadRadius: 1,
-                              blurRadius: 3,
-                              offset: const Offset(3, 3),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: GestureDetector(
-                          onLongPress: () async {
-                            await showModalBottomSheet(
-                              elevation: 10.0,
-                              barrierColor: Colors.black.withOpacity(0.5),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(45.0),
-                                  topRight: Radius.circular(45.0),
-                                ),
-                              ),
-                              isScrollControlled:
-                                  true, // won't scroll when keyboard came out if isScrollControlled is set to false
-                              context: context,
-                              builder: (context) => SingleChildScrollView(
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xff2394b0),
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(45.0),
-                                      topRight: Radius.circular(45.0),
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          height: 72,
-                                          color: const Color(0xff2394b0),
-                                          child: GestureDetector(
-                                            onTap: () async {
-                                              final MapPageController
-                                                  mapPageController =
-                                                  Get.find<MapPageController>();
-                                              await mapPageController.locate(
-                                                location: LatLng(
-                                                  storeDataAndPlace
-                                                      .place.location.lat,
-                                                  storeDataAndPlace
-                                                      .place.location.lng,
-                                                ),
-                                              );
-
-                                              final MainScreenController
-                                                  mainScreenController =
-                                                  Get.find<
-                                                      MainScreenController>();
-                                              mainScreenController.currentPage =
-                                                  2;
-
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Center(
-                                              child: Text(
-                                                "CLICK HERE LOCATE",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 72,
-                                          color: _colorThemeController
-                                              .colorTheme.color4,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              final ReportFormController
-                                                  reportFormController =
-                                                  Get.find<
-                                                      ReportFormController>();
-                                              reportFormController
-                                                      .reportForm.placeText =
-                                                  storeDataAndPlace.place.name;
-                                              reportFormController
-                                                      .reportForm.placeID =
-                                                  storeDataAndPlace
-                                                      .place.placeId;
-                                              reportFormController
-                                                      .placeController.text =
-                                                  storeDataAndPlace.place.name;
-
-                                              final MainScreenController
-                                                  mainScreenController =
-                                                  Get.find<
-                                                      MainScreenController>();
-                                              mainScreenController.currentPage =
-                                                  0;
-
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Center(
-                                              child: Text(
-                                                "CLICK HERE TO REPORT THE STORE",
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          child: ExpansionCard(
-                            background: Container(
-                              height: 280,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage("assets/food.gif"),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            leading: const Icon(
-                              Icons.warning_rounded,
-                              size: 64,
-                              color: Colors.orange,
-                            ),
-                            title: Container(
-                              margin: const EdgeInsets.only(left: 12, top: 12),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    storeDataAndPlace.title,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: _colorThemeController
-                                          .colorTheme.color1,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  // Fixed Spacing
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  Text(
-                                    storeDataAndPlace.happenedAt,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: _colorThemeController
-                                          .colorTheme.color1,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            children: <Widget>[
-                              const SizedBox(
-                                height: 12,
-                              ),
-                              Text("Place: ${storeDataAndPlace.place.name}"),
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  })
-                  .toList()
-                  .reversed
-                  .toList(),
-            ),
+      webUI: mainComponemt,
     );
 
     return responsiveUI.build(context);
