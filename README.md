@@ -41,3 +41,8 @@ Add a certificate to backend.
 ## ver-0.3.2-prerelease
 
 Fix domain bugs.
+
+## ver-0.4.0
+
+Fix the bug that caused the report submission to fail.
+Change the place prediction display type from address to place name.
