@@ -69,7 +69,7 @@ class SupportPageState extends State<SupportPage> {
                 maxLines: 2,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 24,
+                  fontSize: 22,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -235,8 +235,9 @@ class SupportPageState extends State<SupportPage> {
         ),
       ),
       webUI: Scaffold(
+        backgroundColor: _colorThemeController.colorTheme.color3,
         body: Container(
-          color: _colorThemeController.colorTheme.color3,
+          color: Colors.transparent,
           child: NoScrollbar(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),

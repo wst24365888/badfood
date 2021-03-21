@@ -831,9 +831,7 @@ class ReportPageState extends State<ReportPage> {
                                                 Get.focusScope.unfocus();
                                                 _reportFormController
                                                     .onChangePlace(
-                                                  predictedPlace
-                                                      .structuredFormatting
-                                                      .mainText,
+                                                  "${predictedPlace.structuredFormatting.mainText} - ${predictedPlace.structuredFormatting.secondaryText}",
                                                 );
                                                 _reportFormController
                                                     .setPlaceID(
@@ -841,9 +839,7 @@ class ReportPageState extends State<ReportPage> {
                                                 );
                                                 _reportFormController
                                                         .placeController.text =
-                                                    predictedPlace
-                                                        .structuredFormatting
-                                                        .mainText;
+                                                    "${predictedPlace.structuredFormatting.mainText} - ${predictedPlace.structuredFormatting.secondaryText}";
                                                 _predictions = PredictedPlace();
                                               });
                                             },
@@ -855,9 +851,7 @@ class ReportPageState extends State<ReportPage> {
                                                 padding:
                                                     const EdgeInsets.all(10.0),
                                                 child: Text(
-                                                  predictedPlace
-                                                      .structuredFormatting
-                                                      .mainText,
+                                                  "${predictedPlace.structuredFormatting.mainText} - ${predictedPlace.structuredFormatting.secondaryText}",
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                 ),

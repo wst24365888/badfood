@@ -51,3 +51,8 @@ Change the place prediction display type from address to place name.
 
 Fix some bug of deserialization.
 Adjust dropdown menu's size in store page.
+
+## ver-0.4.2
+
+Fix the render problem for the web version of person page.
+Change the place prediction display type from place name to place name + address.
