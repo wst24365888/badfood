@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math' as math;
 import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/user_info_controller.dart';
+import 'package:badfood/models/predicted_place.dart';
 import 'package:badfood/services/get_predict_place.dart';
 import 'package:badfood/services/submit_new_report.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
@@ -44,7 +45,7 @@ class ReportPageState extends State<ReportPage> {
   final FocusNode _focusNodeOfSymptom = FocusNode();
   final FocusNode _focusNodeOfNote = FocusNode();
 
-  Map<String, dynamic> _predictions = {};
+  PredictedPlace _predictions = PredictedPlace();
 
   final _imagePicker = ImagePicker();
 
@@ -116,7 +117,7 @@ class ReportPageState extends State<ReportPage> {
 
       if (!_focusNodeOfPlace.hasFocus) {
         setState(() {
-          _predictions = {};
+          _predictions = PredictedPlace();
         });
       }
     });
@@ -802,7 +803,8 @@ class ReportPageState extends State<ReportPage> {
                             ),
                           ],
                         ),
-                        if (_predictions.isEmpty)
+                        if (_predictions.predictions == null ||
+                            _predictions.predictions.isEmpty)
                           Container(
                             height: 10,
                           )
@@ -816,8 +818,8 @@ class ReportPageState extends State<ReportPage> {
                                       height: 70,
                                     )
                                   ] +
-                                  (_predictions["predictions"] as List)
-                                      .map((_places) {
+                                  _predictions.predictions
+                                      .map((Predictions predictedPlace) {
                                     return Row(
                                       children: [
                                         const Spacer(),
@@ -829,17 +831,20 @@ class ReportPageState extends State<ReportPage> {
                                                 Get.focusScope.unfocus();
                                                 _reportFormController
                                                     .onChangePlace(
-                                                        _places["description"]
-                                                            .toString());
+                                                  predictedPlace
+                                                      .structuredFormatting
+                                                      .mainText,
+                                                );
                                                 _reportFormController
                                                     .setPlaceID(
-                                                        _places["place_id"]
-                                                            .toString());
+                                                  predictedPlace.placeId,
+                                                );
                                                 _reportFormController
                                                         .placeController.text =
-                                                    _places["description"]
-                                                        .toString();
-                                                _predictions = {};
+                                                    predictedPlace
+                                                        .structuredFormatting
+                                                        .mainText;
+                                                _predictions = PredictedPlace();
                                               });
                                             },
                                             child: Container(
@@ -850,8 +855,9 @@ class ReportPageState extends State<ReportPage> {
                                                 padding:
                                                     const EdgeInsets.all(10.0),
                                                 child: Text(
-                                                  _places["description"]
-                                                      .toString(),
+                                                  predictedPlace
+                                                      .structuredFormatting
+                                                      .mainText,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                 ),

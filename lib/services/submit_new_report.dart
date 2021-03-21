@@ -22,7 +22,7 @@ Future<String> submitNewReport() async {
 
   final http.MultipartRequest request = http.MultipartRequest(
     'POST',
-    Uri.parse('http://badfoodapi.ncuuccu.online/v1/reports/store'),
+    Uri.parse('https://badfoodapi.ncuuccu.online/v1/reports/store'),
   );
 
   request.fields.addAll({
