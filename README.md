@@ -29,3 +29,7 @@ Finish web version, but auth page UI/report page UI/store page UI is not unique 
 ## ver-0.2.2
 
 Fix Android http connection issue.
+
+## ver-0.3.0-prerelease
+
+Backend available now. Ready to release.
