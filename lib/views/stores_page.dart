@@ -45,11 +45,11 @@ class StoresPageState extends State<StoresPage> {
             DropdownMenuItem(
               value: countyName,
               child: Container(
-                margin: const EdgeInsets.all(25),
+                margin: const EdgeInsets.all(20),
                 child: Text(
                   countyName,
                   style: const TextStyle(
-                    fontSize: 50,
+                    fontSize: 42,
                     height: 1.2,
                     fontWeight: FontWeight.w700,
                     color: Colors.black,

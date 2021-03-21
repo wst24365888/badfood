@@ -46,3 +46,8 @@ Fix domain bugs.
 
 Fix the bug that caused the report submission to fail.
 Change the place prediction display type from address to place name.
+
+## ver-0.4.1
+
+Fix some bug of deserialization.
+Adjust dropdown menu's size in store page.

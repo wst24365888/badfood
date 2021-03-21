@@ -64,7 +64,7 @@ class Predictions {
         terms.add(Terms.fromJson(v as Map<String, dynamic>));
       });
     }
-    types = json['types'] as List<String>;
+    types = (json['types'] as List).cast<String>();
   }
 
   Map<String, dynamic> toJson() {
