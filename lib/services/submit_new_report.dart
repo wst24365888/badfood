@@ -22,7 +22,7 @@ Future<String> submitNewReport() async {
 
   final http.MultipartRequest request = http.MultipartRequest(
     'POST',
-    Uri.parse('http://172.18.74.113:8080/v1/reports/store'),
+    Uri.parse('http://104.199.232.64/v1/reports/store'),
   );
 
   request.fields.addAll({
