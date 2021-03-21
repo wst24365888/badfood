@@ -8,7 +8,7 @@ Future<BackendUserInfo> getUserInfo() async {
   final UserInfoController _userInfoController = Get.find<UserInfoController>();
 
   final http.Response response = await http.get(
-    Uri.http(
+    Uri.https(
       '104.199.232.64',
       'user',
     ),

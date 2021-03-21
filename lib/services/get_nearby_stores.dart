@@ -12,7 +12,7 @@ Future<ReportedStores> getNearbyStores() async {
   final LocationData currentLocation = await getLocation();
 
   final http.Response response = await http.post(
-    Uri.http(
+    Uri.https(
       '104.199.232.64',
       'v1/Places/nearby',
       {
