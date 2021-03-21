@@ -49,7 +49,7 @@ class StoresPageState extends State<StoresPage> {
                 child: Text(
                   countyName,
                   style: const TextStyle(
-                    fontSize: 42,
+                    fontSize: 48,
                     height: 1.2,
                     fontWeight: FontWeight.w700,
                     color: Colors.black,

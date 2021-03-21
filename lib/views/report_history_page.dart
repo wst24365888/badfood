@@ -415,8 +415,9 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
         ),
       ),
       webUI: Scaffold(
+        backgroundColor: Colors.white,
         body: Container(
-          color: Colors.white,
+          color: Colors.transparent,
           child: NoScrollbar(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
