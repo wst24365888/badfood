@@ -21,3 +21,7 @@ Add support page.
 ## ver-0.2.0
 
 Finish web version(dirty).
+
+## ver-0.2.1
+
+Finish web version, but auth page UI/report page UI/store page UI is not unique tho.
