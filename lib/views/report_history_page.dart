@@ -5,6 +5,7 @@ import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/models/user_report_history.dart';
 import 'package:badfood/services/get_all_reports_by_user.dart';
 import 'package:badfood/widgets/indicator_app_bar.dart';
+import 'package:badfood/widgets/no_scrollbar.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
 import 'package:badfood/widgets/wave_widget.dart';
 import 'package:expansion_card/expansion_card.dart';
@@ -28,6 +29,8 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
 
   bool _isLoading = true;
 
+  bool _initMobileUI = false;
+
   @override
   void initState() {
     super.initState();
@@ -42,6 +45,12 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_initMobileUI && MediaQuery.of(context).size.width >= 960) {
+      Navigator.pop(context);
+    }
+
+    _initMobileUI = MediaQuery.of(context).size.width < 960;
+
     final Widget mainComponemt = (_userReportHistory.data == null ||
             _userReportHistory.data.isEmpty)
         ? const SizedBox(
@@ -107,6 +116,13 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                         color: const Color(0xff2394b0),
                                         child: GestureDetector(
                                           onTap: () async {
+                                            final MainScreenController
+                                                mainScreenController = Get.find<
+                                                    MainScreenController>();
+
+                                            mainScreenController.isLoading =
+                                                true;
+
                                             final MapPageController
                                                 mapPageController =
                                                 Get.find<MapPageController>();
@@ -119,17 +135,25 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                               ),
                                             );
 
-                                            final MainScreenController
-                                                mainScreenController = Get.find<
-                                                    MainScreenController>();
                                             mainScreenController.currentPage =
                                                 2;
 
                                             Navigator.pop(context);
+
+                                            // for mobileUI
+                                            if (MediaQuery.of(context)
+                                                    .size
+                                                    .width <
+                                                960) {
+                                              Navigator.pop(context);
+                                            }
+
+                                            mainScreenController.isLoading =
+                                                false;
                                           },
                                           child: const Center(
                                             child: Text(
-                                              "CLICK HERE LOCATE",
+                                              "CLICK HERE TO LOCATE",
                                               style: TextStyle(
                                                 color: Colors.white,
                                               ),
@@ -389,7 +413,17 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
           ),
         ),
       ),
-      webUI: mainComponemt,
+      webUI: Scaffold(
+        body: Container(
+          color: Colors.white,
+          child: NoScrollbar(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: mainComponemt,
+            ),
+          ),
+        ),
+      ),
     );
 
     return responsiveUI.build(context);

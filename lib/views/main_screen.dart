@@ -34,6 +34,13 @@ class MainScreenState extends State<MainScreen>
     PersonPage(),
   ];
 
+  // final List<Widget> _pages = [
+  //   Container(),
+  //   Container(),
+  //   Container(),
+  //   Container(),
+  // ];
+
   @override
   Widget build(BuildContext context) {
     Get.put(ReportFormController());

@@ -39,9 +39,9 @@ class MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Scaffold(
-        body: GoogleMap(
+    return Scaffold(
+      body: Obx(
+        () => GoogleMap(
           markers: Set.from(_mapPageController.marker),
           scrollGesturesEnabled: _mapPageController.enable.value,
           zoomControlsEnabled: false,
@@ -61,121 +61,119 @@ class MapPageState extends State<MapPage> {
           },
           onTap: (LatLng place) {},
         ),
-        floatingActionButton: SingleChildScrollView(
-          child: Container(
-            color: Colors.transparent,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 12.0,
-                    right: 12.0,
-                    bottom: 24.0,
-                  ),
-                  child: Transform.scale(
-                    scale: 1.1,
-                    child: FloatingActionButton(
-                      heroTag: null,
-                      foregroundColor: Colors.white70,
-                      backgroundColor: _colorThemeController.colorTheme.color4,
-                      splashColor: _colorThemeController.colorTheme.color5,
-                      onPressed: () async {
-                        final GoogleMapController _tmpController =
-                            await _mapController.future;
+      ),
+      floatingActionButton: SingleChildScrollView(
+        child: Container(
+          color: Colors.transparent,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                  left: 12.0,
+                  right: 12.0,
+                  bottom: 24.0,
+                ),
+                child: Transform.scale(
+                  scale: 1.1,
+                  child: FloatingActionButton(
+                    heroTag: null,
+                    foregroundColor: Colors.white70,
+                    backgroundColor: _colorThemeController.colorTheme.color4,
+                    splashColor: _colorThemeController.colorTheme.color5,
+                    onPressed: () async {
+                      final GoogleMapController _tmpController =
+                          await _mapController.future;
 
-                        final LatLngBounds _currentPos =
-                            await _tmpController.getVisibleRegion();
-                        final double _zoom =
-                            await _tmpController.getZoomLevel();
+                      final LatLngBounds _currentPos =
+                          await _tmpController.getVisibleRegion();
+                      final double _zoom = await _tmpController.getZoomLevel();
 
-                        _tmpController.animateCamera(
-                          CameraUpdate.newCameraPosition(
-                            CameraPosition(
-                              target: LatLng(
-                                  (_currentPos.northeast.latitude +
-                                          _currentPos.southwest.latitude) /
-                                      2,
-                                  (_currentPos.northeast.longitude +
-                                          _currentPos.southwest.longitude) /
-                                      2),
-                              zoom: _zoom + 1,
-                            ),
+                      _tmpController.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                            target: LatLng(
+                                (_currentPos.northeast.latitude +
+                                        _currentPos.southwest.latitude) /
+                                    2,
+                                (_currentPos.northeast.longitude +
+                                        _currentPos.southwest.longitude) /
+                                    2),
+                            zoom: _zoom + 1,
                           ),
-                        );
-                      },
-                      child: const Icon(Icons.add),
-                    ),
+                        ),
+                      );
+                    },
+                    child: const Icon(Icons.add),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 12.0,
-                    right: 12.0,
-                    bottom: 24.0,
-                  ),
-                  child: Transform.scale(
-                    scale: 1.1,
-                    child: FloatingActionButton(
-                      heroTag: null,
-                      foregroundColor: Colors.white70,
-                      backgroundColor: _colorThemeController.colorTheme.color4,
-                      splashColor: _colorThemeController.colorTheme.color5,
-                      onPressed: () async {
-                        final GoogleMapController _tmpController =
-                            await _mapController.future;
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                  left: 12.0,
+                  right: 12.0,
+                  bottom: 24.0,
+                ),
+                child: Transform.scale(
+                  scale: 1.1,
+                  child: FloatingActionButton(
+                    heroTag: null,
+                    foregroundColor: Colors.white70,
+                    backgroundColor: _colorThemeController.colorTheme.color4,
+                    splashColor: _colorThemeController.colorTheme.color5,
+                    onPressed: () async {
+                      final GoogleMapController _tmpController =
+                          await _mapController.future;
 
-                        final LatLngBounds _currentPos =
-                            await _tmpController.getVisibleRegion();
-                        final double _zoom =
-                            await _tmpController.getZoomLevel();
+                      final LatLngBounds _currentPos =
+                          await _tmpController.getVisibleRegion();
+                      final double _zoom = await _tmpController.getZoomLevel();
 
-                        _tmpController.animateCamera(
-                          CameraUpdate.newCameraPosition(
-                            CameraPosition(
-                              target: LatLng(
-                                  (_currentPos.northeast.latitude +
-                                          _currentPos.southwest.latitude) /
-                                      2,
-                                  (_currentPos.northeast.longitude +
-                                          _currentPos.southwest.longitude) /
-                                      2),
-                              zoom: _zoom - 1,
-                            ),
+                      _tmpController.animateCamera(
+                        CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                            target: LatLng(
+                                (_currentPos.northeast.latitude +
+                                        _currentPos.southwest.latitude) /
+                                    2,
+                                (_currentPos.northeast.longitude +
+                                        _currentPos.southwest.longitude) /
+                                    2),
+                            zoom: _zoom - 1,
                           ),
-                        );
-                      },
-                      child: const Icon(Icons.remove),
-                    ),
+                        ),
+                      );
+                    },
+                    child: const Icon(Icons.remove),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    left: 12.0,
-                    right: 12.0,
-                    bottom: 24.0,
-                  ),
-                  child: Transform.scale(
-                    scale: 1.1,
-                    child: FloatingActionButton(
-                      heroTag: null,
-                      foregroundColor: Colors.white70,
-                      backgroundColor: _colorThemeController.colorTheme.color4,
-                      splashColor: _colorThemeController.colorTheme.color5,
-                      onPressed: () async {
-                        await _mapPageController.resetMarkers(context);
-                        final GoogleMapController _tmpController =
-                            await _mapController.future;
-                        await _mapPageController.locate(
-                          controller: _tmpController,
-                        );
-                      },
-                      child: const Icon(Icons.location_searching),
-                    ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                  left: 12.0,
+                  right: 12.0,
+                  bottom: 24.0,
+                ),
+                child: Transform.scale(
+                  scale: 1.1,
+                  child: FloatingActionButton(
+                    heroTag: null,
+                    foregroundColor: Colors.white70,
+                    backgroundColor: _colorThemeController.colorTheme.color4,
+                    splashColor: _colorThemeController.colorTheme.color5,
+                    onPressed: () async {
+                      await _mapPageController.resetMarkers(context);
+                      final GoogleMapController _tmpController =
+                          await _mapController.future;
+                      await _mapPageController.locate(
+                        controller: _tmpController,
+                      );
+                    },
+                    child: const Icon(Icons.location_searching),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
