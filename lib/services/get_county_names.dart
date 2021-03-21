@@ -29,7 +29,7 @@ Future<List<String>> getCountyNames() async {
   ];
 
   // final http.Response response = await http.get(
-  //   Uri.https(
+  //   Uri.httpss(
   //     'api.nlsc.gov.tw',
   //     'other/ListCounty',
   //   ),
