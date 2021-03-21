@@ -13,7 +13,7 @@ Future<ReportedStores> getNearbyStores() async {
 
   final http.Response response = await http.post(
     Uri.https(
-      '104.199.232.64',
+      'badfoodapi.ncuuccu.online',
       'v1/Places/nearby',
       {
         "lat": currentLocation.latitude.toString(),

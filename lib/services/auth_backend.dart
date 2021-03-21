@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 Future<String> signIn(String idToken) async {
   final http.Response response = await http.post(
-    Uri.https('104.199.232.64', 'v1/auth/login'),
+    Uri.https('badfoodapi.ncuuccu.online', 'v1/auth/login'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json; charset=UTF-8',

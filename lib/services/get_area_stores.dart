@@ -9,7 +9,7 @@ Future<ReportedStores> getAreaStores({String cityName}) async {
 
   final http.Response response = await http.get(
     Uri.https(
-      '104.199.232.64',
+      'badfoodapi.ncuuccu.online',
       'v1/blacklist/index',
       cityName != null
           ? {

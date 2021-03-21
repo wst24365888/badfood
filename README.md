@@ -37,3 +37,7 @@ Backend available now. Ready to release.
 ## ver-0.3.1-prerelease
 
 Add a certificate to backend.
+
+## ver-0.3.2-prerelease
+
+Fix domain bugs.
