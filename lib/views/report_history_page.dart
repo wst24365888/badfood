@@ -133,6 +133,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                                 storeDataAndPlace
                                                     .place.location.lng,
                                               ),
+                                              zoom: 20,
                                             );
 
                                             mainScreenController.currentPage =

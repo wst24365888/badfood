@@ -6,7 +6,6 @@ import 'package:badfood/widgets/indicator_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
 import 'package:badfood/views/report_page.dart';
 import 'package:flutter/services.dart';
@@ -43,8 +42,6 @@ class MainScreenState extends State<MainScreen>
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ReportFormController());
-
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     final ResponsiveUI responsiveUI = ResponsiveUI(
