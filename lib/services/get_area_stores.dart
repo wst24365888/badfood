@@ -9,7 +9,7 @@ Future<ReportedStores> getAreaStores({String cityName}) async {
 
   final http.Response response = await http.get(
     Uri.http(
-      'localhost:8080',
+      '172.18.74.113:8080',
       'v1/blacklist/index',
       cityName != null
           ? {

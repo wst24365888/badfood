@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 Future<String> signIn(String idToken) async {
   final http.Response response = await http.post(
-    Uri.http('localhost:8080', 'v1/auth/login'),
+    Uri.http('172.18.74.113:8080', 'v1/auth/login'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
       'Accept': 'application/json; charset=UTF-8',

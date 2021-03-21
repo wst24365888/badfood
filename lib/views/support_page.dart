@@ -69,7 +69,7 @@ class SupportPageState extends State<SupportPage> {
                 maxLines: 2,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 32,
+                  fontSize: 24,
                   fontWeight: FontWeight.w700,
                 ),
               ),

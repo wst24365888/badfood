@@ -12,7 +12,7 @@ Future<Map<String, dynamic>> getPredictPlace(String queryString) async {
 
   final http.Response response = await http.get(
     Uri.http(
-      'localhost:8080',
+      '172.18.74.113:8080',
       'v1/forwardPlaceAPI/query',
       {
         "lat": currentLocation.latitude.toString(),

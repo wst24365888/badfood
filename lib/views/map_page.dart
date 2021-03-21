@@ -162,12 +162,18 @@ class MapPageState extends State<MapPage> {
                     backgroundColor: _colorThemeController.colorTheme.color4,
                     splashColor: _colorThemeController.colorTheme.color5,
                     onPressed: () async {
+                      _mainScreenController.isLoading = true;
+
                       await _mapPageController.resetMarkers(context);
+
                       final GoogleMapController _tmpController =
                           await _mapController.future;
+
                       await _mapPageController.locate(
                         controller: _tmpController,
                       );
+
+                      _mainScreenController.isLoading = false;
                     },
                     child: const Icon(Icons.location_searching),
                   ),

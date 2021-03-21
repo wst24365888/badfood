@@ -1034,7 +1034,7 @@ class ReportPageState extends State<ReportPage> {
                           flex: 21,
                           child: Container(
                             decoration: _formBoxDecoration,
-                            height: 50,
+                            height: 60,
                             child: TextButton(
                               style: ButtonStyle(
                                 shape:

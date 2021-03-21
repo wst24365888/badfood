@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 Future<BitmapDescriptor> getMarkerIcon(
   BuildContext context,
@@ -15,8 +16,8 @@ Future<BitmapDescriptor> getMarkerIcon(
   final DrawableRoot svgDrawableRoot = await svg.fromSvgString(svgString, null);
 
   // toPicture() and toImage() don't seem to be pixel ratio aware, so we calculate the actual sizes here
-  const double width = 32;
-  const double height = 32;
+  const double width = kIsWeb ? 32 : 96;
+  const double height = kIsWeb ? 32 : 96;
 
   // Convert to ui.Picture
   final ui.Picture picture =
