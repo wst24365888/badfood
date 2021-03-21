@@ -13,7 +13,7 @@ Future<ReportedStores> getNearbyStores() async {
 
   final http.Response response = await http.post(
     Uri.http(
-      'localhost:8080',
+      '172.18.74.113:8080',
       'v1/Places/nearby',
       {
         "lat": currentLocation.latitude.toString(),
