@@ -64,3 +64,7 @@ Fix the bug that caused the loading location to be very slow.
 ## ver-0.4.4
 
 Fix the bug when a user denies the permission to access location.
+
+## ver-0.4.5
+
+Adjust StorePage's list size.

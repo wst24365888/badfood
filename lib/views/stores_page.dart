@@ -48,8 +48,9 @@ class StoresPageState extends State<StoresPage> {
                 margin: const EdgeInsets.all(20),
                 child: Text(
                   countyName,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 36,
+                    fontSize: 24,
                     height: 1.2,
                     fontWeight: FontWeight.w400,
                     color: Colors.black,
@@ -180,39 +181,65 @@ class StoresPageState extends State<StoresPage> {
 
                         _mainScreenController.isLoading = false;
                       },
-                      hint: const Text(
-                        "County",
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 50,
-                          height: 1.2,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.grey,
-                        ),
+                      hint: Row(
+                        children: [
+                          const Text(
+                            "County",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 50,
+                              height: 1.2,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 18),
+                            child: LineIcon.arrowCircleDown(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ],
                       ),
                       itemHeight: 60,
                       dropdownColor: _colorThemeController.colorTheme.color5,
                       underline: Container(
                         height: 0.0,
                       ),
-                      icon: Padding(
-                        padding: const EdgeInsets.only(left: 18),
-                        child: LineIcon.arrowCircleDown(
-                          color: Colors.grey,
-                        ),
+                      icon: Container(
+                        height: 0,
                       ),
-                      iconSize: 24,
                       items: _countyNameList,
                       selectedItemBuilder: (context) =>
                           _countyNameList.map((countyName) {
-                        return Text(
-                          countyName.value.toString(),
-                          style: TextStyle(
-                            fontSize: 50,
-                            height: 1.2,
-                            fontWeight: FontWeight.w700,
-                            color: _colorThemeController.colorTheme.color2,
-                          ),
+                        return Row(
+                          children: [
+                            ConstrainedBox(
+                              constraints: BoxConstraints(
+                                maxWidth: MediaQuery.of(context).size.width >
+                                        960
+                                    ? 560
+                                    : MediaQuery.of(context).size.width * 0.75,
+                              ),
+                              child: Text(
+                                countyName.value.toString(),
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 50,
+                                  height: 1.2,
+                                  fontWeight: FontWeight.w700,
+                                  color:
+                                      _colorThemeController.colorTheme.color2,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 18),
+                              child: LineIcon.arrowCircleDown(
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
                         );
                       }).toList(),
                     ),
