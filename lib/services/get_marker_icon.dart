@@ -9,7 +9,7 @@ Future<BitmapDescriptor> getMarkerIcon(
   BuildContext context,
   String assetName,
 ) async {
-  debugPrint("Loading Pin Svg");
+  // debugPrint("Loading Pin Svg");
 
   // Read SVG file as String
   final String svgString =
@@ -31,7 +31,7 @@ Future<BitmapDescriptor> getMarkerIcon(
   final ui.Image image = await picture.toImage(width.toInt(), height.toInt());
   final ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
 
-  debugPrint("Pin Svg Loaded");
+  // debugPrint("Pin Svg Loaded");
 
   return BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
 }

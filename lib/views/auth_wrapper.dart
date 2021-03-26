@@ -214,7 +214,7 @@ class AuthWrapperState extends State<AuthWrapper> {
                                     onPressed: () async {
                                       setState(() {
                                         _isLoading = true;
-                                        debugPrint("Google Login");
+                                        // debugPrint("Google Login");
                                       });
 
                                       final UserCredential userCredential =
@@ -253,7 +253,7 @@ class AuthWrapperState extends State<AuthWrapper> {
 
                                       setState(() {
                                         _isLoading = false;
-                                        debugPrint("Login Success");
+                                        // debugPrint("Login Success");
                                       });
 
                                       Get.to(() => const MainScreen());
@@ -464,7 +464,7 @@ class AuthWrapperState extends State<AuthWrapper> {
                                           onPressed: () async {
                                             setState(() {
                                               _isLoading = true;
-                                              debugPrint("Google Login");
+                                              // debugPrint("Google Login");
                                             });
 
                                             final UserCredential
@@ -508,7 +508,7 @@ class AuthWrapperState extends State<AuthWrapper> {
 
                                             setState(() {
                                               _isLoading = false;
-                                              debugPrint("Login Success");
+                                              // debugPrint("Login Success");
                                             });
 
                                             Get.to(() => const MainScreen());
