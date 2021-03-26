@@ -5,8 +5,8 @@ import 'package:badfood/services/get_marker_icon.dart';
 import 'package:badfood/services/get_nearby_stores.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
 import 'package:expansion_card/expansion_card.dart';
-import 'package:location/location.dart';
 import 'package:badfood/services/get_location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:badfood/models/reported_stores.dart';
 import 'package:flutter/material.dart';
@@ -254,7 +254,7 @@ class MapPageController extends GetxController {
     LatLng _location;
 
     if (location == null) {
-      final LocationData currentLocationData = await getLocation();
+      final Position currentLocationData = await getLocation();
       _location =
           LatLng(currentLocationData.latitude, currentLocationData.longitude);
     } else {

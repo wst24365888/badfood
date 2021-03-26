@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'package:badfood/controllers/user_info_controller.dart';
 import 'package:badfood/models/predicted_place.dart';
 import 'package:badfood/services/get_location.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
 Future<PredictedPlace> getPredictPlace(String queryString) async {
   final UserInfoController _userInfoController = Get.find<UserInfoController>();
 
-  final LocationData currentLocation = await getLocation();
+  final Position currentLocation = await getLocation();
 
   final http.Response response = await http.get(
     Uri.https(
