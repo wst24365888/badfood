@@ -49,15 +49,23 @@ class MapPageState extends State<MapPage> {
           onMapCreated: (GoogleMapController controller) async {
             _mainScreenController.isLoading = true;
 
+            debugPrint("Loading Map");
+
             _mapController.complete(controller);
 
             final GoogleMapController _tmpController =
                 await _mapController.future;
             await _mapPageController.locate(controller: _tmpController);
 
+            debugPrint("Map Loaded");
+
+            debugPrint("Setting Marker");
+
             await _mapPageController.resetMarkers(context);
 
             _mainScreenController.isLoading = false;
+
+            debugPrint("Marker Set");
           },
           onTap: (LatLng place) {},
         ),
@@ -164,6 +172,8 @@ class MapPageState extends State<MapPage> {
                     onPressed: () async {
                       _mainScreenController.isLoading = true;
 
+                      debugPrint("Setting Marker");
+
                       await _mapPageController.resetMarkers(context);
 
                       final GoogleMapController _tmpController =
@@ -174,6 +184,8 @@ class MapPageState extends State<MapPage> {
                       );
 
                       _mainScreenController.isLoading = false;
+
+                      debugPrint("Marker Set");
                     },
                     child: const Icon(Icons.location_searching),
                   ),

@@ -56,3 +56,7 @@ Adjust dropdown menu's size in store page.
 
 Fix the render problem for the web version of person page.
 Change the place prediction display type from place name to place name + address.
+
+## ver-0.4.3
+
+Fix the bug that caused the loading location to be very slow.
