@@ -22,11 +22,6 @@ class MapPageState extends State<MapPage> {
       Get.find<MainScreenController>();
   final MapPageController _mapPageController = Get.put(MapPageController());
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 16,
-  );
-
   @override
   void initState() {
     super.initState();
@@ -45,11 +40,11 @@ class MapPageState extends State<MapPage> {
           markers: Set.from(_mapPageController.marker),
           scrollGesturesEnabled: _mapPageController.enable.value,
           zoomControlsEnabled: false,
-          initialCameraPosition: _kGooglePlex,
+          initialCameraPosition: _mapPageController.kGooglePlex,
           onMapCreated: (GoogleMapController controller) async {
             _mainScreenController.isLoading = true;
 
-            debugPrint("Loading Map");
+            // debugPrint("Loading Map");
 
             _mapController.complete(controller);
 
@@ -57,15 +52,15 @@ class MapPageState extends State<MapPage> {
                 await _mapController.future;
             await _mapPageController.locate(controller: _tmpController);
 
-            debugPrint("Map Loaded");
+            // debugPrint("Map Loaded");
 
-            debugPrint("Setting Marker");
+            // debugPrint("Setting Marker");
 
             await _mapPageController.resetMarkers(context);
 
             _mainScreenController.isLoading = false;
 
-            debugPrint("Marker Set");
+            // debugPrint("Marker Set");
           },
           onTap: (LatLng place) {},
         ),
@@ -172,7 +167,7 @@ class MapPageState extends State<MapPage> {
                     onPressed: () async {
                       _mainScreenController.isLoading = true;
 
-                      debugPrint("Setting Marker");
+                      // debugPrint("Setting Marker");
 
                       await _mapPageController.resetMarkers(context);
 
@@ -185,7 +180,7 @@ class MapPageState extends State<MapPage> {
 
                       _mainScreenController.isLoading = false;
 
-                      debugPrint("Marker Set");
+                      // debugPrint("Marker Set");
                     },
                     child: const Icon(Icons.location_searching),
                   ),

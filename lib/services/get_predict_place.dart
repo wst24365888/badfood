@@ -15,11 +15,15 @@ Future<PredictedPlace> getPredictPlace(String queryString) async {
     Uri.https(
       'badfoodapi.ncuuccu.online',
       'v1/forwardPlaceAPI/query',
-      {
-        "lat": currentLocation.latitude.toString(),
-        "lng": currentLocation.longitude.toString(),
-        "q": queryString,
-      },
+      currentLocation == null
+          ? {
+              "q": queryString,
+            }
+          : {
+              "lat": currentLocation.latitude.toString(),
+              "lng": currentLocation.longitude.toString(),
+              "q": queryString,
+            },
     ),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',

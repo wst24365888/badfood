@@ -60,3 +60,7 @@ Change the place prediction display type from place name to place name + address
 ## ver-0.4.3
 
 Fix the bug that caused the loading location to be very slow.
+
+## ver-0.4.4
+
+Fix the bug when a user denies the permission to access location.

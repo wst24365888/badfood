@@ -25,6 +25,11 @@ class MapPageController extends GetxController {
 
   GoogleMapController _mapController;
 
+  final CameraPosition kGooglePlex = const CameraPosition(
+    target: LatLng(37.42796133580664, -122.085749655962),
+    zoom: 16,
+  );
+
   Future<void> addMarker(BuildContext context, StoreData storeData) async {
     final ColorThemeController _colorThemeController =
         Get.find<ColorThemeController>();
@@ -255,6 +260,11 @@ class MapPageController extends GetxController {
 
     if (location == null) {
       final Position currentLocationData = await getLocation();
+
+      if (currentLocationData == null) {
+        return;
+      }
+
       _location =
           LatLng(currentLocationData.latitude, currentLocationData.longitude);
     } else {
