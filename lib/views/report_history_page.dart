@@ -8,7 +8,6 @@ import 'package:badfood/widgets/indicator_app_bar.dart';
 import 'package:badfood/widgets/no_scrollbar.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
 import 'package:badfood/widgets/wave_widget.dart';
-import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:badfood/controllers/color_theme_controller.dart';
 import 'package:get/get.dart';
@@ -66,26 +65,18 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
           )
         : Column(
             children: _userReportHistory.data
-                .map((StoreDataAndPlace storeDataAndPlace) {
-                  return Container(
-                    padding: const EdgeInsets.only(
-                      left: 24,
-                      right: 24,
-                      top: 24,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[300],
-                            spreadRadius: 1,
-                            blurRadius: 3,
-                            offset: const Offset(3, 3),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(30),
+                .map(
+                  (StoreDataAndPlace storeDataAndPlace) {
+                    return Container(
+                      padding: const EdgeInsets.only(
+                        left: 24,
+                        right: 24,
+                        top: 24,
                       ),
                       child: GestureDetector(
+                        onTap: () {
+                          print("Detailed Report Page");
+                        },
                         onLongPress: () async {
                           await showModalBottomSheet(
                             elevation: 10.0,
@@ -206,63 +197,83 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                             ),
                           );
                         },
-                        child: ExpansionCard(
-                          background: Container(
-                            height: 280,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/food.gif"),
-                                fit: BoxFit.cover,
+                        child: Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                              image: AssetImage("assets/food.gif"),
+                              fit: BoxFit.cover,
+                            ),
+                            border: Border.all(
+                              color: _colorThemeController.colorTheme.color3
+                                  .withOpacity(0.5),
+                              width: 1.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey[300],
+                                spreadRadius: 1,
+                                blurRadius: 3,
+                                offset: const Offset(3, 3),
                               ),
-                            ),
+                            ],
+                            borderRadius: BorderRadius.circular(30),
                           ),
-                          leading: const Icon(
-                            Icons.warning_rounded,
-                            size: 64,
-                            color: Colors.orange,
-                          ),
-                          title: Container(
-                            margin: const EdgeInsets.only(left: 12, top: 12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  storeDataAndPlace.title,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color:
-                                        _colorThemeController.colorTheme.color1,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.w700,
+                          margin: const EdgeInsets.only(left: 12, top: 12),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(
+                                  left: 20,
+                                  right: 20,
+                                  top: 15,
+                                ),
+                                height: double.infinity,
+                                child: const Icon(
+                                  Icons.warning_rounded,
+                                  size: 64,
+                                  color: Colors.orange,
+                                ),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 25,
                                   ),
-                                ),
-                                // Fixed Spacing
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  storeDataAndPlace.happenedAt,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color:
-                                        _colorThemeController.colorTheme.color1,
-                                    fontSize: 16,
+                                  Text(
+                                    storeDataAndPlace.title,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: _colorThemeController
+                                          .colorTheme.color1,
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                  // Fixed Spacing
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Text(
+                                    storeDataAndPlace.happenedAt,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: _colorThemeController
+                                          .colorTheme.color1,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          children: <Widget>[
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            Text("Place: ${storeDataAndPlace.place.name}"),
-                          ],
                         ),
                       ),
-                    ),
-                  );
-                })
+                    );
+                  },
+                )
                 .toList()
                 .reversed
                 .toList(),
