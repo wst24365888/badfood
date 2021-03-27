@@ -68,3 +68,7 @@ Fix the bug when a user denies the permission to access location.
 ## ver-0.4.5
 
 Adjust StorePage's list size.
+
+## ver-0.4.6
+
+Fix the bug that caused store page can't see any reports.
