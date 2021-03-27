@@ -27,27 +27,27 @@ class StoresPageState extends State<StoresPage> {
   final MainScreenController _mainScreenController =
       Get.find<MainScreenController>();
 
-  final List<DropdownMenuItem> _countyNameList = [];
+  final List<DropdownMenuItem<Map<String, String>>> _countyList = [];
   ReportedStores _reportedStores = ReportedStores();
 
   final ScrollController _scrollController = ScrollController();
 
-  String _cityName;
+  Map<String, String> _county;
 
   @override
   void initState() {
     super.initState();
 
-    getCountyNames().then((countyNameList) {
+    getCountyNames().then((List<Map<String, String>> countyList) {
       setState(() {
-        for (final String countyName in countyNameList) {
-          _countyNameList.add(
+        for (final Map<String, String> county in countyList) {
+          _countyList.add(
             DropdownMenuItem(
-              value: countyName,
+              value: county,
               child: Container(
                 margin: const EdgeInsets.all(20),
                 child: Text(
-                  countyName,
+                  county["display_name"],
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 24,
@@ -163,16 +163,16 @@ class StoresPageState extends State<StoresPage> {
 
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: DropdownButton(
-                      value: _cityName,
-                      onChanged: (cityName) async {
+                    child: DropdownButton<Map<String, String>>(
+                      value: _county,
+                      onChanged: (Map<String, String> county) async {
                         _mainScreenController.isLoading = true;
 
                         setState(() {
-                          _cityName = cityName.toString();
+                          _county = county;
                         });
 
-                        getAreaStores(cityName: _cityName)
+                        getAreaStores(cityName: _county["county_name"])
                             .then((ReportedStores reportedStores) {
                           setState(() {
                             _reportedStores = reportedStores;
@@ -209,9 +209,9 @@ class StoresPageState extends State<StoresPage> {
                       icon: Container(
                         height: 0,
                       ),
-                      items: _countyNameList,
-                      selectedItemBuilder: (context) =>
-                          _countyNameList.map((countyName) {
+                      items: _countyList,
+                      selectedItemBuilder: (context) => _countyList
+                          .map((DropdownMenuItem<Map<String, String>> county) {
                         return Row(
                           children: [
                             ConstrainedBox(
@@ -222,7 +222,7 @@ class StoresPageState extends State<StoresPage> {
                                     : MediaQuery.of(context).size.width * 0.75,
                               ),
                               child: Text(
-                                countyName.value.toString(),
+                                county.value["display_name"].toString(),
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: 50,
