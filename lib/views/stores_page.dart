@@ -457,7 +457,8 @@ class StoresPageState extends State<StoresPage> {
                                         .map((StoreReport report) {
                                           return GestureDetector(
                                             onTap: () {
-                                              print("Detailed Report Page");
+                                              print(
+                                                  "Detailed Report Page to ${report.id}");
                                             },
                                             child: Container(
                                               width: double.infinity,

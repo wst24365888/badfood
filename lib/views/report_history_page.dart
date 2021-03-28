@@ -4,6 +4,7 @@ import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/models/user_report_history.dart';
 import 'package:badfood/services/get_all_reports_by_user.dart';
+import 'package:badfood/views/detailed_report_page.dart';
 import 'package:badfood/widgets/indicator_app_bar.dart';
 import 'package:badfood/widgets/no_scrollbar.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
@@ -66,7 +67,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
         : Column(
             children: _userReportHistory.data
                 .map(
-                  (StoreDataAndPlace storeDataAndPlace) {
+                  (StoreDataAndPlace report) {
                     return Container(
                       padding: const EdgeInsets.only(
                         left: 24,
@@ -74,8 +75,28 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                         top: 24,
                       ),
                       child: GestureDetector(
-                        onTap: () {
-                          print("Detailed Report Page");
+                        onTap: () async {
+                          await showModalBottomSheet(
+                            useRootNavigator: true,
+                            elevation: 0,
+                            barrierColor: Colors.black.withOpacity(0.5),
+                            backgroundColor: Colors.transparent,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(45.0),
+                                topRight: Radius.circular(45.0),
+                              ),
+                            ),
+                            isScrollControlled:
+                                true, // won't scroll when keyboard came out if isScrollControlled is set to false
+                            context: context,
+                            builder: (context) => SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.8,
+                              child: DetailedReportPage(
+                                reportID: report.id,
+                              ),
+                            ),
+                          );
                         },
                         onLongPress: () async {
                           await showModalBottomSheet(
@@ -119,10 +140,8 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                                 Get.find<MapPageController>();
                                             await mapPageController.locate(
                                               location: LatLng(
-                                                storeDataAndPlace
-                                                    .place.location.lat,
-                                                storeDataAndPlace
-                                                    .place.location.lng,
+                                                report.place.location.lat,
+                                                report.place.location.lng,
                                               ),
                                               zoom: 20,
                                             );
@@ -162,15 +181,12 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                             final ReportFormController
                                                 reportFormController = Get.find<
                                                     ReportFormController>();
-                                            reportFormController
-                                                    .reportForm.placeText =
-                                                storeDataAndPlace.place.name;
-                                            reportFormController
-                                                    .reportForm.placeID =
-                                                storeDataAndPlace.place.placeId;
-                                            reportFormController
-                                                    .placeController.text =
-                                                storeDataAndPlace.place.name;
+                                            reportFormController.reportForm
+                                                .placeText = report.place.name;
+                                            reportFormController.reportForm
+                                                .placeID = report.place.placeId;
+                                            reportFormController.placeController
+                                                .text = report.place.name;
 
                                             final MainScreenController
                                                 mainScreenController = Get.find<
@@ -243,7 +259,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                     height: 25,
                                   ),
                                   Text(
-                                    storeDataAndPlace.title,
+                                    report.title,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: _colorThemeController
@@ -257,7 +273,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                     height: 12,
                                   ),
                                   Text(
-                                    storeDataAndPlace.happenedAt,
+                                    report.happenedAt,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       color: _colorThemeController
@@ -281,6 +297,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
 
     final ResponsiveUI responsiveUI = ResponsiveUI(
       mobileUI: Scaffold(
+        backgroundColor: _colorThemeController.colorTheme.color1,
         appBar: _isLoading
             ? IndicatorAppBar(
                 indicatorHeight: 10,

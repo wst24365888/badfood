@@ -98,6 +98,7 @@ class SupportPageState extends State<SupportPage> {
 
     final ResponsiveUI responsiveUI = ResponsiveUI(
       mobileUI: Scaffold(
+        backgroundColor: _colorThemeController.colorTheme.color1,
         appBar: AppBar(
           toolbarHeight: 10,
           backgroundColor: _colorThemeController.colorTheme.color4,
