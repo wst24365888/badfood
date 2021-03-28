@@ -548,6 +548,8 @@ class StoresPageState extends State<StoresPage> {
                                           );
                                         })
                                         .toList()
+                                        .reversed
+                                        .toList()
                                         .sublist(
                                           0,
                                           storeData.reports.length >= 3
