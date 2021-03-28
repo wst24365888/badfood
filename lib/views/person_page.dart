@@ -9,14 +9,14 @@ import 'package:badfood/controllers/color_theme_controller.dart';
 import 'package:get/get.dart';
 import 'package:line_icons/line_icon.dart';
 
-class PersonPage extends StatefulWidget {
-  const PersonPage({Key key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key key}) : super(key: key);
 
   @override
-  PersonPageState createState() => PersonPageState();
+  ProfilePageState createState() => ProfilePageState();
 }
 
-class PersonPageState extends State<PersonPage> {
+class ProfilePageState extends State<ProfilePage> {
   final _userInfoController = Get.find<UserInfoController>();
   final _colorThemeController = Get.find<ColorThemeController>();
 
@@ -289,7 +289,7 @@ class PersonPageState extends State<PersonPage> {
                         ),
                         alignment: Alignment.centerLeft,
                         child: const Text(
-                          "Person",
+                          "Profile",
                           style: TextStyle(
                             fontSize: 50,
                             height: 1.2,
@@ -488,7 +488,7 @@ class PersonPageState extends State<PersonPage> {
                                   ),
                                   alignment: Alignment.centerLeft,
                                   child: const Text(
-                                    "Person",
+                                    "Profile",
                                     style: TextStyle(
                                       fontSize: 50,
                                       height: 1.2,
