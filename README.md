@@ -80,3 +80,7 @@ Add detailed report page.
 ## ver-0.5.1
 
 Rename: PersonPage => ProfilePage.
+
+## ver-0.5.2
+
+Reverse result of store page, user can take a look at the newest report right now.
