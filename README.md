@@ -84,3 +84,7 @@ Rename: PersonPage => ProfilePage.
 ## ver-0.5.2
 
 Reverse result of store page, user can take a look at the newest report right now.
+
+## ver-0.5.3
+
+Adjust marker position of map page.
