@@ -72,3 +72,7 @@ Adjust StorePage's list size.
 ## ver-0.4.6
 
 Fix the bug that caused store page can't see any reports.
+
+## ver-0.5.0
+
+Add detailed report page.

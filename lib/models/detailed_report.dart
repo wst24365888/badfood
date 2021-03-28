@@ -27,7 +27,7 @@ class DetailedData {
   String note;
   String happenedAt;
   StorePlace place;
-  List<ReportImage> image;
+  List<ReportImageInfo> image;
 
   DetailedData({
     this.id,
@@ -49,9 +49,9 @@ class DetailedData {
         ? StorePlace.fromJson(json['place'] as Map<String, dynamic>)
         : null;
     if (json['image'] != null) {
-      image = <ReportImage>[];
+      image = <ReportImageInfo>[];
       json['image'].forEach((v) {
-        image.add(ReportImage.fromJson(v as Map<String, dynamic>));
+        image.add(ReportImageInfo.fromJson(v as Map<String, dynamic>));
       });
     }
   }
@@ -73,12 +73,12 @@ class DetailedData {
   }
 }
 
-class ReportImage {
+class ReportImageInfo {
   String id;
 
-  ReportImage({this.id});
+  ReportImageInfo({this.id});
 
-  ReportImage.fromJson(Map<String, dynamic> json) {
+  ReportImageInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'].toString();
   }
 

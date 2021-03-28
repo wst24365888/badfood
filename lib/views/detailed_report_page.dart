@@ -1,5 +1,7 @@
 import 'package:badfood/models/detailed_report.dart';
+import 'package:badfood/models/reported_image.dart';
 import 'package:badfood/services/get_detailed_report.dart';
+import 'package:badfood/services/get_reported_image.dart';
 import 'package:badfood/widgets/indicator_app_bar.dart';
 import 'package:badfood/widgets/no_scrollbar.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
@@ -25,7 +27,7 @@ class DetailedReportPageState extends State<DetailedReportPage> {
 
   DetailedReport _detailedReport = DetailedReport();
 
-  final List<Image> _photos = [];
+  final List<Widget> _photos = [];
 
   bool _isLoading = true;
 
@@ -37,13 +39,28 @@ class DetailedReportPageState extends State<DetailedReportPage> {
         .then((DetailedReport detailedReport) async {
       setState(() {
         _detailedReport = detailedReport;
+      });
 
-        if (_detailedReport.data.image.isNotEmpty) {
-          for (ReportImage reportImage in _detailedReport.data.image) {
-            print(reportImage.id);
-          }
+      if (_detailedReport.data.image.isNotEmpty) {
+        for (final ReportImageInfo reportImageInfo
+            in _detailedReport.data.image) {
+          final ReportedImage reportedImage =
+              await getReportedImage(reportImageInfo.id);
+          setState(() {
+            _photos.add(
+              Image.network("https://cors.bridged.cc/${reportedImage.url}"),
+            );
+            _photos.add(
+              const SizedBox(
+                width: 24,
+              ),
+            );
+          });
         }
+        _photos.removeLast();
+      }
 
+      setState(() {
         _isLoading = false;
       });
     });
@@ -51,240 +68,286 @@ class DetailedReportPageState extends State<DetailedReportPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ResponsiveUI responsiveUI = ResponsiveUI(
-      mobileUI: Obx(
-        () => Scrollbar(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Stack(
-              children: [
-                Column(
+    final Widget mainComponent = Obx(
+      () => Stack(
+        children: [
+          if (_detailedReport.data != null)
+            Container(
+              color: const Color(0xff2394b0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      height:
-                          MediaQuery.of(context).size.height * 0.8 - 480 <= 0
-                              ? 0
-                              : MediaQuery.of(context).size.height * 0.8 - 480,
-                      decoration: const BoxDecoration(
-                        color: Color(0xff2394b0),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(45.0),
-                          topRight: Radius.circular(45.0),
-                        ),
+                    const SizedBox(
+                      height: 48,
+                    ),
+                    Text(
+                      _detailedReport.data.title,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: _colorThemeController.colorTheme.color1,
+                        fontSize: 40,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Container(
-                      height: 480,
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage("assets/food.gif"),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
+                    const SizedBox(
+                      height: 36,
                     ),
-                  ],
-                ),
-                if (_detailedReport.data != null)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    Row(
                       children: [
-                        const SizedBox(
-                          height: 48,
+                        SizedBox(
+                          width: 108,
+                          child: Text(
+                            "Time",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey[300],
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
                         ),
                         Text(
-                          _detailedReport.data.title,
+                          "|  ${_detailedReport.data.happenedAt}",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            color: _colorThemeController.colorTheme.color1,
-                            fontSize: 40,
-                            fontWeight: FontWeight.w700,
+                            color: Colors.grey[300],
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                        const SizedBox(
-                          height: 18,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 108,
-                              child: Text(
-                                "Time",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey[300],
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "|  ${_detailedReport.data.happenedAt}",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.grey[300],
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 18,
-                        ),
-                        Row(
-                          children: [
-                            SizedBox(
-                              width: 108,
-                              child: Text(
-                                "Place",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey[300],
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "|  ${_detailedReport.data.place.name}",
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                color: Colors.grey[300],
-                                fontSize: 18,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 18,
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.only(top: 4),
-                              width: 108,
-                              child: Text(
-                                "Symptom",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey[300],
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4),
-                              child: Text(
-                                "|  ",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey[300],
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.1,
-                              child: NoScrollbar(
-                                child: SingleChildScrollView(
-                                  physics: const BouncingScrollPhysics(),
-                                  child: Text(
-                                    _detailedReport.data.symptom,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: Colors.grey[300],
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 18,
-                        ),
-                        if (_detailedReport.data.note != null)
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 108,
-                                child: Text(
-                                  "Note",
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Colors.grey[300],
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ),
-                              Text(
-                                "|  ${_detailedReport.data.note}",
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey[300],
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ],
-                          ),
                       ],
                     ),
-                  ),
-                if (_isLoading)
-                  Container(
-                    decoration: const BoxDecoration(
-                      color: Color(0xff2394b0),
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(45.0),
-                        topRight: Radius.circular(45.0),
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          width: 108,
+                          child: Text(
+                            "Place",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey[300],
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          "|  ${_detailedReport.data.place.name}",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.grey[300],
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(top: 4),
+                          width: 108,
+                          child: Text(
+                            "Symptom",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey[300],
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Text(
+                            "|  ",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey[300],
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxHeight: 120,
+                          ),
+                          child: NoScrollbar(
+                            child: SingleChildScrollView(
+                              physics: const BouncingScrollPhysics(),
+                              child: Text(
+                                _detailedReport.data.symptom,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: Colors.grey[300],
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    if (_detailedReport.data.note != null)
+                      const SizedBox(
+                        height: 18,
                       ),
-                    ),
-                    child: Indicator(
-                      height: 10,
-                      backgroundColor: const Color(0xff2394b0),
-                      initialIndicatorColor:
-                          _colorThemeController.colorTheme.color5,
-                    ),
-                  ),
-              ],
+                    if (_detailedReport.data.note != null)
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 108,
+                            child: Text(
+                              "Note",
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                color: Colors.grey[300],
+                                fontSize: 18,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            "|  ${_detailedReport.data.note}",
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              color: Colors.grey[300],
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    if (_photos.isNotEmpty)
+                      const SizedBox(
+                        height: 24,
+                      ),
+                    if (_photos.isNotEmpty)
+                      Text(
+                        "Photos",
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.grey[300],
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    if (_photos.isNotEmpty)
+                      const SizedBox(
+                        height: 18,
+                      ),
+                    if (_photos.isNotEmpty)
+                      Container(
+                        height: 175,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.3),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(30)),
+                        ),
+                        padding: const EdgeInsets.all(24),
+                        child: NoScrollbar(
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: _photos,
+                            ),
+                          ),
+                        ),
+                      ),
+                    const SizedBox(
+                      height: 80,
+                    )
+                  ],
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
-      webUI: Obx(
-        () => Scrollbar(
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Container(
-              decoration: BoxDecoration(
-                color: _colorThemeController.colorTheme.color1,
-                borderRadius: const BorderRadius.only(
+          if (_isLoading)
+            Container(
+              decoration: const BoxDecoration(
+                color: Color(0xff2394b0),
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(45.0),
                   topRight: Radius.circular(45.0),
                 ),
               ),
-              child: Container(
-                height: MediaQuery.of(context).size.height * 0.8,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage("assets/food.gif"),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
+              child: Indicator(
+                height: 10,
+                backgroundColor: const Color(0xff2394b0),
+                initialIndicatorColor: _colorThemeController.colorTheme.color5,
               ),
             ),
+        ],
+      ),
+    );
+
+    final ResponsiveUI responsiveUI = ResponsiveUI(
+      mobileUI: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(45.0),
+          topRight: Radius.circular(45.0),
+        ),
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            child: mainComponent,
           ),
         ),
+      ),
+      webUI: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Column(
+              children: [
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                ClipRRect(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(45.0),
+                    topRight: Radius.circular(45.0),
+                  ),
+                  child: Scrollbar(
+                    child: SingleChildScrollView(
+                      child: mainComponent,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+        ],
       ),
     );
 

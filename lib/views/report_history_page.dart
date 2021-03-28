@@ -90,11 +90,8 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                             isScrollControlled:
                                 true, // won't scroll when keyboard came out if isScrollControlled is set to false
                             context: context,
-                            builder: (context) => SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.8,
-                              child: DetailedReportPage(
-                                reportID: report.id,
-                              ),
+                            builder: (context) => DetailedReportPage(
+                              reportID: report.id,
                             ),
                           );
                         },
