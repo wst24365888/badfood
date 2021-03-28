@@ -4,11 +4,11 @@ import 'package:badfood/controllers/main_screen_controller.dart';
 import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/models/user_report_history.dart';
 import 'package:badfood/services/get_all_reports_by_user.dart';
+import 'package:badfood/views/detailed_report_page.dart';
 import 'package:badfood/widgets/indicator_app_bar.dart';
 import 'package:badfood/widgets/no_scrollbar.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
 import 'package:badfood/widgets/wave_widget.dart';
-import 'package:expansion_card/expansion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:badfood/controllers/color_theme_controller.dart';
 import 'package:get/get.dart';
@@ -66,26 +66,35 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
           )
         : Column(
             children: _userReportHistory.data
-                .map((StoreDataAndPlace storeDataAndPlace) {
-                  return Container(
-                    padding: const EdgeInsets.only(
-                      left: 24,
-                      right: 24,
-                      top: 24,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey[300],
-                            spreadRadius: 1,
-                            blurRadius: 3,
-                            offset: const Offset(3, 3),
-                          ),
-                        ],
-                        borderRadius: BorderRadius.circular(30),
+                .map(
+                  (StoreDataAndPlace report) {
+                    return Container(
+                      padding: const EdgeInsets.only(
+                        left: 24,
+                        right: 24,
+                        top: 24,
                       ),
                       child: GestureDetector(
+                        onTap: () async {
+                          await showModalBottomSheet(
+                            useRootNavigator: true,
+                            elevation: 0,
+                            barrierColor: Colors.black.withOpacity(0.5),
+                            backgroundColor: Colors.transparent,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(45.0),
+                                topRight: Radius.circular(45.0),
+                              ),
+                            ),
+                            isScrollControlled:
+                                true, // won't scroll when keyboard came out if isScrollControlled is set to false
+                            context: context,
+                            builder: (context) => DetailedReportPage(
+                              reportID: report.id,
+                            ),
+                          );
+                        },
                         onLongPress: () async {
                           await showModalBottomSheet(
                             elevation: 10.0,
@@ -128,10 +137,8 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                                 Get.find<MapPageController>();
                                             await mapPageController.locate(
                                               location: LatLng(
-                                                storeDataAndPlace
-                                                    .place.location.lat,
-                                                storeDataAndPlace
-                                                    .place.location.lng,
+                                                report.place.location.lat,
+                                                report.place.location.lng,
                                               ),
                                               zoom: 20,
                                             );
@@ -171,15 +178,12 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                             final ReportFormController
                                                 reportFormController = Get.find<
                                                     ReportFormController>();
-                                            reportFormController
-                                                    .reportForm.placeText =
-                                                storeDataAndPlace.place.name;
-                                            reportFormController
-                                                    .reportForm.placeID =
-                                                storeDataAndPlace.place.placeId;
-                                            reportFormController
-                                                    .placeController.text =
-                                                storeDataAndPlace.place.name;
+                                            reportFormController.reportForm
+                                                .placeText = report.place.name;
+                                            reportFormController.reportForm
+                                                .placeID = report.place.placeId;
+                                            reportFormController.placeController
+                                                .text = report.place.name;
 
                                             final MainScreenController
                                                 mainScreenController = Get.find<
@@ -206,63 +210,83 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                             ),
                           );
                         },
-                        child: ExpansionCard(
-                          background: Container(
-                            height: 280,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/food.gif"),
-                                fit: BoxFit.cover,
+                        child: Container(
+                          height: 150,
+                          decoration: BoxDecoration(
+                            image: const DecorationImage(
+                              image: AssetImage("assets/food.gif"),
+                              fit: BoxFit.cover,
+                            ),
+                            border: Border.all(
+                              color: _colorThemeController.colorTheme.color3
+                                  .withOpacity(0.5),
+                              width: 1.5,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey[300],
+                                spreadRadius: 1,
+                                blurRadius: 3,
+                                offset: const Offset(3, 3),
                               ),
-                            ),
+                            ],
+                            borderRadius: BorderRadius.circular(30),
                           ),
-                          leading: const Icon(
-                            Icons.warning_rounded,
-                            size: 64,
-                            color: Colors.orange,
-                          ),
-                          title: Container(
-                            margin: const EdgeInsets.only(left: 12, top: 12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  storeDataAndPlace.title,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color:
-                                        _colorThemeController.colorTheme.color1,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.w700,
+                          margin: const EdgeInsets.only(left: 12, top: 12),
+                          child: Row(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(
+                                  left: 20,
+                                  right: 20,
+                                  top: 15,
+                                ),
+                                height: double.infinity,
+                                child: const Icon(
+                                  Icons.warning_rounded,
+                                  size: 64,
+                                  color: Colors.orange,
+                                ),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 25,
                                   ),
-                                ),
-                                // Fixed Spacing
-                                const SizedBox(
-                                  height: 12,
-                                ),
-                                Text(
-                                  storeDataAndPlace.happenedAt,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color:
-                                        _colorThemeController.colorTheme.color1,
-                                    fontSize: 16,
+                                  Text(
+                                    report.title,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: _colorThemeController
+                                          .colorTheme.color1,
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.w700,
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                  // Fixed Spacing
+                                  const SizedBox(
+                                    height: 12,
+                                  ),
+                                  Text(
+                                    report.happenedAt,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: _colorThemeController
+                                          .colorTheme.color1,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          children: <Widget>[
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            Text("Place: ${storeDataAndPlace.place.name}"),
-                          ],
                         ),
                       ),
-                    ),
-                  );
-                })
+                    );
+                  },
+                )
                 .toList()
                 .reversed
                 .toList(),
@@ -270,6 +294,7 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
 
     final ResponsiveUI responsiveUI = ResponsiveUI(
       mobileUI: Scaffold(
+        backgroundColor: _colorThemeController.colorTheme.color1,
         appBar: _isLoading
             ? IndicatorAppBar(
                 indicatorHeight: 10,

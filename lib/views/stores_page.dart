@@ -5,6 +5,7 @@ import 'package:badfood/controllers/report_form_controller.dart';
 import 'package:badfood/models/reported_stores.dart';
 import 'package:badfood/services/get_county_names.dart';
 import 'package:badfood/services/get_area_stores.dart';
+import 'package:badfood/views/detailed_report_page.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
 import 'package:badfood/widgets/wave_widget.dart';
 import 'package:expansion_card/expansion_card.dart';
@@ -455,62 +456,94 @@ class StoresPageState extends State<StoresPage> {
                                     ] +
                                     storeData.reports
                                         .map((StoreReport report) {
-                                          return Container(
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                              color: Colors.white
-                                                  .withOpacity(0.75),
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                Radius.circular(30),
+                                          return GestureDetector(
+                                            onTap: () async {
+                                              await showModalBottomSheet(
+                                                useRootNavigator: true,
+                                                elevation: 0,
+                                                barrierColor: Colors.black
+                                                    .withOpacity(0.5),
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                shape:
+                                                    const RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(45.0),
+                                                    topRight:
+                                                        Radius.circular(45.0),
+                                                  ),
+                                                ),
+                                                isScrollControlled:
+                                                    true, // won't scroll when keyboard came out if isScrollControlled is set to false
+                                                context: context,
+                                                builder: (context) =>
+                                                    DetailedReportPage(
+                                                  reportID: report.id,
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                              width: double.infinity,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white
+                                                    .withOpacity(0.75),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(30),
+                                                ),
                                               ),
-                                            ),
-                                            margin: const EdgeInsets.symmetric(
-                                              horizontal: 12,
-                                              vertical: 4,
-                                            ),
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 12,
-                                              vertical: 8,
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Expanded(
-                                                  flex: 5,
-                                                  child: Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            left: 24),
-                                                    child: Text(
-                                                      report.happenedAt,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 12,
+                                                vertical: 4,
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                horizontal: 12,
+                                                vertical: 8,
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  Expanded(
+                                                    flex: 5,
+                                                    child: Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              left: 24),
+                                                      child: Text(
+                                                        report.happenedAt,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                const SizedBox(
-                                                  width: 36,
-                                                ),
-                                                Expanded(
-                                                  flex: 5,
-                                                  child: Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            right: 24),
-                                                    child: Text(
-                                                      report.title,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
+                                                  const SizedBox(
+                                                    width: 36,
+                                                  ),
+                                                  Expanded(
+                                                    flex: 5,
+                                                    child: Container(
+                                                      margin:
+                                                          const EdgeInsets.only(
+                                                              right: 24),
+                                                      child: Text(
+                                                        report.title,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
                                           );
                                         })
