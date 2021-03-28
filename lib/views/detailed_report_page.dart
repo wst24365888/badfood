@@ -1,7 +1,5 @@
 import 'package:badfood/models/detailed_report.dart';
-import 'package:badfood/models/reported_image.dart';
 import 'package:badfood/services/get_detailed_report.dart';
-import 'package:badfood/services/get_reported_image.dart';
 import 'package:badfood/widgets/indicator_app_bar.dart';
 import 'package:badfood/widgets/no_scrollbar.dart';
 import 'package:badfood/widgets/responsive_ui.dart';
@@ -44,11 +42,10 @@ class DetailedReportPageState extends State<DetailedReportPage> {
       if (_detailedReport.data.image.isNotEmpty) {
         for (final ReportImageInfo reportImageInfo
             in _detailedReport.data.image) {
-          final ReportedImage reportedImage =
-              await getReportedImage(reportImageInfo.id);
           setState(() {
             _photos.add(
-              Image.network("https://cors.bridged.cc/${reportedImage.url}"),
+              Image.network(
+                  "https://dscncu-c8a09.appspot.com.storage.googleapis.com/${reportImageInfo.id}"),
             );
             _photos.add(
               const SizedBox(

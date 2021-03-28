@@ -88,3 +88,7 @@ Reverse result of store page, user can take a look at the newest report right no
 ## ver-0.5.3
 
 Adjust marker position of map page.
+
+## ver-0.5.4
+
+Fix the bug that caused CORS problem during loading time of detailed report page.
