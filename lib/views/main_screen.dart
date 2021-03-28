@@ -30,7 +30,7 @@ class MainScreenState extends State<MainScreen>
     ReportPage(),
     StoresPage(),
     MapPage(),
-    PersonPage(),
+    ProfilePage(),
   ];
 
   // final List<Widget> _pages = [
@@ -106,7 +106,7 @@ class MainScreenState extends State<MainScreen>
                 GButton(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   icon: LineIcons.user,
-                  text: 'Person',
+                  text: 'Profile',
                 ),
               ],
             ),
@@ -188,7 +188,7 @@ class MainScreenState extends State<MainScreen>
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 15),
                                 icon: LineIcons.user,
-                                text: 'Person',
+                                text: 'Profile',
                               ),
                             ],
                           ),
@@ -270,7 +270,7 @@ class MainScreenState extends State<MainScreen>
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 15, vertical: 15),
                                 icon: LineIcons.user,
-                                text: 'Person',
+                                text: 'Profile',
                               ),
                             ],
                           ),
