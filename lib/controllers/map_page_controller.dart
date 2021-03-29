@@ -280,10 +280,17 @@ class MapPageController extends GetxController {
         .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
 
-  Future<void> resetMarkers(BuildContext context) async {
-    _markers.assignAll(<Marker>[]);
+  Future<void> resetMarkers(
+    BuildContext context, {
+    LatLng centralPoint,
+  }) async {
+    ReportedStores _nearbyStores;
 
-    final ReportedStores _nearbyStores = await getNearbyStores();
+    if (centralPoint == null) {
+      _nearbyStores = await getNearbyStores();
+    } else {
+      _nearbyStores = await getNearbyStores(centralPoint: centralPoint);
+    }
 
     for (final StoreData _storeData in _nearbyStores.data) {
       await addMarker(context, _storeData);

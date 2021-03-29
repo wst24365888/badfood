@@ -92,3 +92,8 @@ Adjust marker position of map page.
 ## ver-0.5.4
 
 Fix the bug that caused CORS problem during loading time of detailed report page.
+
+## ver-0.5.5
+
+Fix the bug that caused double tap action gesture registured on whole map page.
+Adjust map markers to immutable.

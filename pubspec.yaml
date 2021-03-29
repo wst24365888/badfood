@@ -49,6 +49,7 @@ dependencies:
   mime: ^1.0.0
   xml: ^5.0.2
   expansion_card: ^0.1.0
+  pointer_interceptor: ^0.9.0
 
 dev_dependencies:
   flutter_test:
