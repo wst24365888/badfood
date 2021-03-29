@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
 import 'package:badfood/controllers/color_theme_controller.dart';
+import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key key}) : super(key: key);
@@ -62,131 +63,152 @@ class MapPageState extends State<MapPage> {
 
             // debugPrint("Marker Set");
           },
-          onTap: (LatLng place) {},
+          onCameraIdle: () async {
+            final GoogleMapController _tmpController =
+                await _mapController.future;
+
+            final LatLngBounds _currentPos =
+                await _tmpController.getVisibleRegion();
+
+            await _mapPageController.resetMarkers(
+              context,
+              centralPoint: LatLng(
+                  (_currentPos.northeast.latitude +
+                          _currentPos.southwest.latitude) /
+                      2,
+                  (_currentPos.northeast.longitude +
+                          _currentPos.southwest.longitude) /
+                      2),
+            );
+          },
         ),
       ),
       floatingActionButton: SingleChildScrollView(
-        child: Container(
-          color: Colors.transparent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  left: 12.0,
-                  right: 12.0,
-                  bottom: 24.0,
-                ),
-                child: Transform.scale(
-                  scale: 1.1,
-                  child: FloatingActionButton(
-                    heroTag: null,
-                    foregroundColor: Colors.white70,
-                    backgroundColor: _colorThemeController.colorTheme.color4,
-                    splashColor: _colorThemeController.colorTheme.color5,
-                    onPressed: () async {
-                      final GoogleMapController _tmpController =
-                          await _mapController.future;
+        child: PointerInterceptor(
+          child: Container(
+            color: Colors.transparent,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 12.0,
+                    right: 12.0,
+                    bottom: 24.0,
+                  ),
+                  child: Transform.scale(
+                    scale: 1.1,
+                    child: FloatingActionButton(
+                      heroTag: null,
+                      foregroundColor: Colors.white70,
+                      backgroundColor: _colorThemeController.colorTheme.color4,
+                      splashColor: _colorThemeController.colorTheme.color5,
+                      onPressed: () async {
+                        final GoogleMapController _tmpController =
+                            await _mapController.future;
 
-                      final LatLngBounds _currentPos =
-                          await _tmpController.getVisibleRegion();
-                      final double _zoom = await _tmpController.getZoomLevel();
+                        final LatLngBounds _currentPos =
+                            await _tmpController.getVisibleRegion();
+                        final double _zoom =
+                            await _tmpController.getZoomLevel();
 
-                      _tmpController.animateCamera(
-                        CameraUpdate.newCameraPosition(
-                          CameraPosition(
-                            target: LatLng(
-                                (_currentPos.northeast.latitude +
-                                        _currentPos.southwest.latitude) /
-                                    2,
-                                (_currentPos.northeast.longitude +
-                                        _currentPos.southwest.longitude) /
-                                    2),
-                            zoom: _zoom + 1,
+                        _tmpController.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                              target: LatLng(
+                                  (_currentPos.northeast.latitude +
+                                          _currentPos.southwest.latitude) /
+                                      2,
+                                  (_currentPos.northeast.longitude +
+                                          _currentPos.southwest.longitude) /
+                                      2),
+                              zoom: _zoom + 1,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: const Icon(Icons.add),
+                        );
+                      },
+                      child: const Icon(Icons.add),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  left: 12.0,
-                  right: 12.0,
-                  bottom: 24.0,
-                ),
-                child: Transform.scale(
-                  scale: 1.1,
-                  child: FloatingActionButton(
-                    heroTag: null,
-                    foregroundColor: Colors.white70,
-                    backgroundColor: _colorThemeController.colorTheme.color4,
-                    splashColor: _colorThemeController.colorTheme.color5,
-                    onPressed: () async {
-                      final GoogleMapController _tmpController =
-                          await _mapController.future;
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 12.0,
+                    right: 12.0,
+                    bottom: 24.0,
+                  ),
+                  child: Transform.scale(
+                    scale: 1.1,
+                    child: FloatingActionButton(
+                      heroTag: null,
+                      foregroundColor: Colors.white70,
+                      backgroundColor: _colorThemeController.colorTheme.color4,
+                      splashColor: _colorThemeController.colorTheme.color5,
+                      onPressed: () async {
+                        final GoogleMapController _tmpController =
+                            await _mapController.future;
 
-                      final LatLngBounds _currentPos =
-                          await _tmpController.getVisibleRegion();
-                      final double _zoom = await _tmpController.getZoomLevel();
+                        final LatLngBounds _currentPos =
+                            await _tmpController.getVisibleRegion();
+                        final double _zoom =
+                            await _tmpController.getZoomLevel();
 
-                      _tmpController.animateCamera(
-                        CameraUpdate.newCameraPosition(
-                          CameraPosition(
-                            target: LatLng(
-                                (_currentPos.northeast.latitude +
-                                        _currentPos.southwest.latitude) /
-                                    2,
-                                (_currentPos.northeast.longitude +
-                                        _currentPos.southwest.longitude) /
-                                    2),
-                            zoom: _zoom - 1,
+                        _tmpController.animateCamera(
+                          CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                              target: LatLng(
+                                  (_currentPos.northeast.latitude +
+                                          _currentPos.southwest.latitude) /
+                                      2,
+                                  (_currentPos.northeast.longitude +
+                                          _currentPos.southwest.longitude) /
+                                      2),
+                              zoom: _zoom - 1,
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                    child: const Icon(Icons.remove),
+                        );
+                      },
+                      child: const Icon(Icons.remove),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  left: 12.0,
-                  right: 12.0,
-                  bottom: 24.0,
-                ),
-                child: Transform.scale(
-                  scale: 1.1,
-                  child: FloatingActionButton(
-                    heroTag: null,
-                    foregroundColor: Colors.white70,
-                    backgroundColor: _colorThemeController.colorTheme.color4,
-                    splashColor: _colorThemeController.colorTheme.color5,
-                    onPressed: () async {
-                      _mainScreenController.isLoading = true;
+                Container(
+                  margin: const EdgeInsets.only(
+                    left: 12.0,
+                    right: 12.0,
+                    bottom: 24.0,
+                  ),
+                  child: Transform.scale(
+                    scale: 1.1,
+                    child: FloatingActionButton(
+                      heroTag: null,
+                      foregroundColor: Colors.white70,
+                      backgroundColor: _colorThemeController.colorTheme.color4,
+                      splashColor: _colorThemeController.colorTheme.color5,
+                      onPressed: () async {
+                        _mainScreenController.isLoading = true;
 
-                      // debugPrint("Setting Marker");
+                        // debugPrint("Setting Marker");
 
-                      await _mapPageController.resetMarkers(context);
+                        await _mapPageController.resetMarkers(context);
 
-                      final GoogleMapController _tmpController =
-                          await _mapController.future;
+                        final GoogleMapController _tmpController =
+                            await _mapController.future;
 
-                      await _mapPageController.locate(
-                        controller: _tmpController,
-                      );
+                        await _mapPageController.locate(
+                          controller: _tmpController,
+                        );
 
-                      _mainScreenController.isLoading = false;
+                        _mainScreenController.isLoading = false;
 
-                      // debugPrint("Marker Set");
-                    },
-                    child: const Icon(Icons.location_searching),
+                        // debugPrint("Marker Set");
+                      },
+                      child: const Icon(Icons.location_searching),
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
