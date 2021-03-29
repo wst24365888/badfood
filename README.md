@@ -95,5 +95,5 @@ Fix the bug that caused CORS problem during loading time of detailed report page
 
 ## ver-0.5.5
 
-Fix the bug that caused double tap action gesture registered on whole map page.
+Fix the bug that caused double tap (zoom in) gesture registered on whole map page.
 Adjust map markers to immutable.
