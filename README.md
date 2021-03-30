@@ -16,10 +16,7 @@ As a cross-platform application, we hope users can report the bad food as soon a
 
 ## Screenshots
 
-<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-1.png" width="25%">
-<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-2.png" width="25%">
-<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-3.png" width="25%">
-<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-4.png" width="25%">
+<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-1.png" width="24%"> <img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-2.png" width="24%"> <img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-3.png" width="24%"> <img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-4.png" width="24%">
 
 ## About this project
 
