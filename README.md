@@ -102,3 +102,7 @@ Adjust map markers to immutable.
 
 Add icon.
 Redesign auth page UI.
+
+## ver-0.6.1-prerelease
+
+Adjust auth page UI.
