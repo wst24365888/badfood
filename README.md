@@ -106,3 +106,8 @@ Redesign auth page UI.
 ## ver-0.6.1-prerelease
 
 Adjust auth page UI.
+
+## ver-0.6.2-prerelease
+
+Fix the bug that caused some of the store pages doesn't show any result.
+Fix the bug that caused text overflow in some of the detailed report pages.

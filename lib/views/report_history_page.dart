@@ -248,37 +248,39 @@ class ReportHistoryPageState extends State<ReportHistoryPage> {
                                   color: Colors.orange,
                                 ),
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(
-                                    height: 25,
-                                  ),
-                                  Text(
-                                    report.title,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: _colorThemeController
-                                          .colorTheme.color1,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w700,
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(
+                                      height: 25,
                                     ),
-                                  ),
-                                  // Fixed Spacing
-                                  const SizedBox(
-                                    height: 12,
-                                  ),
-                                  Text(
-                                    report.happenedAt,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      color: _colorThemeController
-                                          .colorTheme.color1,
-                                      fontSize: 16,
+                                    Text(
+                                      report.title,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: _colorThemeController
+                                            .colorTheme.color1,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w700,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    // Fixed Spacing
+                                    const SizedBox(
+                                      height: 12,
+                                    ),
+                                    Text(
+                                      report.happenedAt,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: _colorThemeController
+                                            .colorTheme.color1,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
