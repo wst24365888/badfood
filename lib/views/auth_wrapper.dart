@@ -39,7 +39,7 @@ class AuthWrapperState extends State<AuthWrapper> {
 
     final Widget mainComponent = Container(
       color: _colorThemeController.colorTheme.color1,
-      height: MediaQuery.of(context).size.height,
+      height: math.max(MediaQuery.of(context).size.height, 480),
       width: double.infinity,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -80,7 +80,7 @@ class AuthWrapperState extends State<AuthWrapper> {
                 ),
                 child: TextButton.icon(
                   icon: Padding(
-                    padding: const EdgeInsets.only(right: 25.0),
+                    padding: const EdgeInsets.only(right: 24),
                     child: FaIcon(
                       FontAwesomeIcons.google,
                       color: _colorThemeController.colorTheme.color5,
@@ -169,10 +169,11 @@ class AuthWrapperState extends State<AuthWrapper> {
                 backgroundColor: _colorThemeController.colorTheme.color4,
                 elevation: 0,
               ),
-        body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return Obx(
-              () => Stack(
+        body: Obx(
+          () => Scrollbar(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Stack(
                 children: [
                   mainComponent,
                   Transform.rotate(
@@ -183,9 +184,9 @@ class AuthWrapperState extends State<AuthWrapper> {
                       child: WaveWidget(
                         size: Size(
                           MediaQuery.of(context).size.width,
-                          100,
+                          MediaQuery.of(context).size.height / 7,
                         ),
-                        yOffset: 25,
+                        yOffset: MediaQuery.of(context).size.height / 21,
                         waveHeight: 17.5,
                         color: Colors.blue,
                         speed: 1234,
@@ -200,9 +201,9 @@ class AuthWrapperState extends State<AuthWrapper> {
                       child: WaveWidget(
                         size: Size(
                           MediaQuery.of(context).size.width,
-                          100,
+                          MediaQuery.of(context).size.height / 7,
                         ),
-                        yOffset: 25,
+                        yOffset: MediaQuery.of(context).size.height / 21,
                         waveHeight: 17.5,
                         color: _colorThemeController.colorTheme.color5,
                         speed: 2344,
@@ -217,9 +218,9 @@ class AuthWrapperState extends State<AuthWrapper> {
                       child: WaveWidget(
                         size: Size(
                           MediaQuery.of(context).size.width,
-                          100,
+                          MediaQuery.of(context).size.height / 7,
                         ),
-                        yOffset: 25,
+                        yOffset: MediaQuery.of(context).size.height / 21,
                         waveHeight: 15.0,
                         color: _colorThemeController.colorTheme.color4,
                         speed: 7892,
@@ -228,8 +229,8 @@ class AuthWrapperState extends State<AuthWrapper> {
                   ),
                 ],
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
       webUI: Scaffold(
@@ -246,95 +247,83 @@ class AuthWrapperState extends State<AuthWrapper> {
                 backgroundColor: Colors.transparent,
                 elevation: 0,
               ),
-        body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            return Obx(
-              () => Scrollbar(
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints.tightFor(
-                      // Flexible and has min height.
-                      height: math.max(
-                        750,
-                        constraints.maxHeight,
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        Expanded(
-                          flex: 4,
-                          child: Container(
-                            color: _colorThemeController.colorTheme.color1,
-                            child: Stack(
-                              children: [
-                                mainComponent,
-                                Transform.rotate(
-                                  angle: math.pi,
-                                  child: Transform(
-                                    transform: Matrix4.rotationY(math.pi),
-                                    alignment: Alignment.center,
-                                    child: WaveWidget(
-                                      size: Size(
-                                        MediaQuery.of(context).size.width,
-                                        250,
-                                      ),
-                                      yOffset: 85,
-                                      waveHeight: 17.5,
-                                      color: Colors.blue,
-                                      speed: 1234,
-                                    ),
-                                  ),
+        body: Obx(
+          () => Scrollbar(
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              child: Row(
+                children: [
+                  const Spacer(),
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      color: _colorThemeController.colorTheme.color1,
+                      child: Stack(
+                        children: [
+                          mainComponent,
+                          Transform.rotate(
+                            angle: math.pi,
+                            child: Transform(
+                              transform: Matrix4.rotationY(math.pi),
+                              alignment: Alignment.center,
+                              child: WaveWidget(
+                                size: Size(
+                                  MediaQuery.of(context).size.width,
+                                  MediaQuery.of(context).size.height / 7,
                                 ),
-                                Transform.rotate(
-                                  angle: math.pi,
-                                  child: Transform(
-                                    transform: Matrix4.rotationY(0),
-                                    alignment: Alignment.center,
-                                    child: WaveWidget(
-                                      size: Size(
-                                        MediaQuery.of(context).size.width,
-                                        250,
-                                      ),
-                                      yOffset: 85,
-                                      waveHeight: 17.5,
-                                      color: _colorThemeController
-                                          .colorTheme.color5,
-                                      speed: 2344,
-                                    ),
-                                  ),
-                                ),
-                                Transform.rotate(
-                                  angle: math.pi,
-                                  child: Transform(
-                                    transform: Matrix4.rotationY(math.pi),
-                                    alignment: Alignment.center,
-                                    child: WaveWidget(
-                                      size: Size(
-                                        MediaQuery.of(context).size.width,
-                                        250,
-                                      ),
-                                      yOffset: 85,
-                                      waveHeight: 15.0,
-                                      color: _colorThemeController
-                                          .colorTheme.color4,
-                                      speed: 7892,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                yOffset:
+                                    MediaQuery.of(context).size.height / 21,
+                                waveHeight: 17.5,
+                                color: Colors.blue,
+                                speed: 1234,
+                              ),
                             ),
                           ),
-                        ),
-                        const Spacer(),
-                      ],
+                          Transform.rotate(
+                            angle: math.pi,
+                            child: Transform(
+                              transform: Matrix4.rotationY(0),
+                              alignment: Alignment.center,
+                              child: WaveWidget(
+                                size: Size(
+                                  MediaQuery.of(context).size.width,
+                                  MediaQuery.of(context).size.height / 7,
+                                ),
+                                yOffset:
+                                    MediaQuery.of(context).size.height / 21,
+                                waveHeight: 17.5,
+                                color: _colorThemeController.colorTheme.color5,
+                                speed: 2344,
+                              ),
+                            ),
+                          ),
+                          Transform.rotate(
+                            angle: math.pi,
+                            child: Transform(
+                              transform: Matrix4.rotationY(math.pi),
+                              alignment: Alignment.center,
+                              child: WaveWidget(
+                                size: Size(
+                                  MediaQuery.of(context).size.width,
+                                  MediaQuery.of(context).size.height / 7,
+                                ),
+                                yOffset:
+                                    MediaQuery.of(context).size.height / 21,
+                                waveHeight: 15.0,
+                                color: _colorThemeController.colorTheme.color4,
+                                speed: 7892,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
+                  const Spacer(),
+                ],
               ),
-            );
-          },
+            ),
+          ),
         ),
       ),
     );
