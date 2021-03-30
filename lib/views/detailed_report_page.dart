@@ -120,6 +120,8 @@ class DetailedReportPageState extends State<DetailedReportPage> {
                       height: 18,
                     ),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
                           width: 108,
@@ -127,6 +129,7 @@ class DetailedReportPageState extends State<DetailedReportPage> {
                             "Place",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
+                              height: 1.1,
                               color: Colors.grey[300],
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
@@ -134,12 +137,25 @@ class DetailedReportPageState extends State<DetailedReportPage> {
                           ),
                         ),
                         Text(
-                          "|  ${_detailedReport.data.place.name}",
+                          "|  ",
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
+                            height: 1.1,
                             color: Colors.grey[300],
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Expanded(
+                          child: Text(
+                            _detailedReport.data.place.name,
+                            softWrap: true,
+                            style: TextStyle(
+                              height: 1.1,
+                              color: Colors.grey[300],
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
                           ),
                         ),
                       ],
@@ -149,46 +165,48 @@ class DetailedReportPageState extends State<DetailedReportPage> {
                     ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          padding: const EdgeInsets.only(top: 4),
+                        SizedBox(
                           width: 108,
                           child: Text(
                             "Symptom",
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
+                              height: 1.1,
                               color: Colors.grey[300],
                               fontSize: 18,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Text(
-                            "|  ",
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              color: Colors.grey[300],
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                            ),
+                        Text(
+                          "|  ",
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            height: 1.1,
+                            color: Colors.grey[300],
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
-                        ConstrainedBox(
-                          constraints: const BoxConstraints(
-                            maxHeight: 120,
-                          ),
-                          child: NoScrollbar(
-                            child: SingleChildScrollView(
-                              physics: const BouncingScrollPhysics(),
-                              child: Text(
-                                _detailedReport.data.symptom,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.grey[300],
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
+                        Expanded(
+                          child: ConstrainedBox(
+                            constraints: const BoxConstraints(
+                              maxHeight: 120,
+                            ),
+                            child: NoScrollbar(
+                              child: SingleChildScrollView(
+                                physics: const BouncingScrollPhysics(),
+                                child: Text(
+                                  _detailedReport.data.symptom,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    height: 1.1,
+                                    color: Colors.grey[300],
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                  ),
                                 ),
                               ),
                             ),

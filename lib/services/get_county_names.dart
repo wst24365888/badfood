@@ -6,11 +6,11 @@ Future<List<Map<String, String>>> getCountyNames() async {
   final List<Map<String, String>> countyNames = [
     {
       "display_name": "Taipei City",
-      "county_name": "台北市",
+      "county_name": "臺北市",
     },
     {
       "display_name": "Taichung City",
-      "county_name": "台中市",
+      "county_name": "臺中市",
     },
     {
       "display_name": "Keelung City",
@@ -18,7 +18,7 @@ Future<List<Map<String, String>>> getCountyNames() async {
     },
     {
       "display_name": "Tainan City",
-      "county_name": "台南市",
+      "county_name": "臺南市",
     },
     {
       "display_name": "Kaohsiung City",
@@ -78,7 +78,7 @@ Future<List<Map<String, String>>> getCountyNames() async {
     },
     {
       "display_name": "Taitung County",
-      "county_name": "台東縣",
+      "county_name": "臺東縣",
     },
     {
       "display_name": "Kinmen County",
