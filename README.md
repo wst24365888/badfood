@@ -1,113 +1,187 @@
-# badfood
+# Badfood (DSC Solution Challenge 2021)
 
-Frontend of a reporting system for bad food.
+![Flutter](https://img.shields.io/badge/Dart-Flutter-02569B?logo=Flutter)
+![Laravel](https://img.shields.io/badge/php-Laravel-FF2D20?logo=Laravel)
+![MySQL](https://img.shields.io/badge/db-MySQL-orange?logo=MySQL)
+![Docker](https://img.shields.io/badge/container-Docker-2496ED?logo=Docker)
+![Firebase](https://img.shields.io/badge/with-Firebase-FFCC00?logo=Firebase)
+![GCP](https://img.shields.io/badge/with-Google%20Cloud%20Platform-4285F4?logo=Google%20Cloud)
+![GoogleMaps](https://img.shields.io/badge/with-Google%20Map-red?logo=Google%20Maps)
 
-## ver-0.1.0
+A bad food report app.
 
-Android version & mobile size of web version finished.
+We want to solve the food safety problem from the bad food you eat.
 
-## ver-0.1.1
+As a cross-platform application, we hope users can report the bad food as soon as possible, and build a better eating environment.
 
-Modify report history page to date-descending.
+## Screenshots
 
-## ver-0.1.2
+<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-1.png" width="25%">
+<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-2.png" width="25%">
+<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-3.png" width="25%">
+<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-4.png" width="25%">
 
-New feature: loading indicator.
+## About this project
 
-## ver-0.1.3
+This project is made by DSC NCU(National Central University) for DSC Solution Challenge 2021.
 
-Add support page.
+For more information, you can check our demo video.
 
-## ver-0.2.0
+## Usage
 
-Finish web version(dirty).
+### Install
 
-## ver-0.2.1
+``` bash
+git clone https://github.com/wst24365888/badfood.git
+```
 
-Finish web version, but auth page UI/report page UI/store page UI is not unique tho.
+### Build
 
-## ver-0.2.2
+> Remember to setup your Flutter environment first.
 
-Fix Android http connection issue.
+``` bash
+flutter pub get
+flutter run
+```
 
-## ver-0.3.0-prerelease
+## Use Stacks
 
-Backend available now. Ready to release.
+- Flutter
+- Firebase Authentication
+- Firebase Storage
+- GCP Compute Engine
+- GCP Cloud SQL
+- Google Map API
+- Laravel
+- Docker
+- Mysql
 
-## ver-0.3.1-prerelease
+## Contributor
 
-Add a certificate to backend.
+- [Xyphuz Wu](https://github.com/wst24365888)
+- [Yihong Lin](https://github.com/uccuz)
+- [ChunPing Chung](https://github.com/hope51607)
+- [Jeanshan Chou](https://github.com/kn71026)
 
-## ver-0.3.2-prerelease
+## License
 
-Fix domain bugs.
+[MIT License](https://choosealicense.com/licenses/mit/)
 
-## ver-0.4.0
+## Changelogs
 
-Fix the bug that caused the report submission to fail.
-Change the place prediction display type from address to place name.
+### ver-1.0.0
 
-## ver-0.4.1
+- Officially release.
 
-Fix some bug of deserialization.
-Adjust dropdown menu's size in store page.
+### ver-0.6.2-prerelease
 
-## ver-0.4.2
+- Fix the bug that caused some of the store pages doesn't show any result.
 
-Fix the render problem for the web version of person page.
+- Fix the bug that caused text overflow in some of the detailed report pages.
+
+### ver-0.6.1-prerelease
+
+- Adjust auth page UI.
+
+### ver-0.6.0-prerelease
+
+- Add icon.
+
+- Redesign auth page UI.
+
+### ver-0.5.5
+
+- Fix the bug that caused double tap (zoom in) gesture registered on whole map page.
+
+- Adjust map markers to immutable.
+
+### ver-0.5.4
+
+- Fix the bug that caused CORS problem during loading time of detailed report page.
+
+### ver-0.5.3
+
+- Adjust marker position of map page.
+
+### ver-0.5.2
+
+- Reverse result of store page, user can take a look at the newest report right now.
+
+### ver-0.5.1
+
+- Rename: PersonPage => ProfilePage.
+
+### ver-0.5.0
+
+- Add detailed report page.
+
+### ver-0.4.6
+
+- Fix the bug that caused store page can't see any reports.
+
+### ver-0.4.5
+
+- Adjust StorePage's list size.
+
+### ver-0.4.4
+
+- Fix the bug when a user denies the permission to access location.
+
+### ver-0.4.3
+
+- Fix the bug that caused the loading location to be very slow.
+
+### ver-0.4.2
+
+- Fix the render problem for the web version of person page.
 Change the place prediction display type from place name to place name + address.
 
-## ver-0.4.3
+### ver-0.4.1
 
-Fix the bug that caused the loading location to be very slow.
+- Fix some bug of deserialization.
+Adjust dropdown menu's size in store page.
 
-## ver-0.4.4
+### ver-0.4.0
 
-Fix the bug when a user denies the permission to access location.
+- Fix the bug that caused the report submission to fail.
+Change the place prediction display type from address to place name.
 
-## ver-0.4.5
+### ver-0.3.2-prerelease
 
-Adjust StorePage's list size.
+- Fix domain bugs.
 
-## ver-0.4.6
+### ver-0.3.1-prerelease
 
-Fix the bug that caused store page can't see any reports.
+- Add a certificate to backend.
 
-## ver-0.5.0
+### ver-0.3.0-prerelease
 
-Add detailed report page.
+- Backend available now. Ready to release.
 
-## ver-0.5.1
+### ver-0.2.2
 
-Rename: PersonPage => ProfilePage.
+- Fix Android http connection issue.
 
-## ver-0.5.2
+### ver-0.2.1
 
-Reverse result of store page, user can take a look at the newest report right now.
+- Finish web version, but auth page UI/report page UI/store page UI is not unique tho.
 
-## ver-0.5.3
+### ver-0.2.0
 
-Adjust marker position of map page.
+- Finish web version(dirty).
 
-## ver-0.5.4
+### ver-0.1.3
 
-Fix the bug that caused CORS problem during loading time of detailed report page.
+- Add support page.
 
-## ver-0.5.5
+### ver-0.1.2
 
-Fix the bug that caused double tap (zoom in) gesture registered on whole map page.
-Adjust map markers to immutable.
+- New feature: loading indicator.
 
-## ver-0.6.0-prerelease
+### ver-0.1.1
 
-Add icon.
-Redesign auth page UI.
+- Modify report history page to date-descending.
 
-## ver-0.6.1-prerelease
+### ver-0.1.0
 
-Adjust auth page UI.
-
-## ver-0.6.2-prerelease
-
-Fix the bug that caused some of the store pages doesn't show any result.
-Fix the bug that caused text overflow in some of the detailed report pages.
+- Android version & mobile size of web version finished.
