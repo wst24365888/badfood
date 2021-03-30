@@ -97,3 +97,8 @@ Fix the bug that caused CORS problem during loading time of detailed report page
 
 Fix the bug that caused double tap (zoom in) gesture registered on whole map page.
 Adjust map markers to immutable.
+
+## ver-0.6.0-prerelease
+
+Add icon.
+Redesign auth page UI.

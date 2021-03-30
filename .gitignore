@@ -38,6 +38,7 @@ pubspec.lock
 **/android/key.properties
 **/android/local.properties
 **/android/**/GeneratedPluginRegistrant.java
+key.jks
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
