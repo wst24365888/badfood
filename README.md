@@ -16,13 +16,19 @@ As a cross-platform application, we hope users can report the bad food as soon a
 
 ## Screenshots
 
-<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-1.png" width="24%"> <img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-2.png" width="24%"> <img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-3.png" width="24%"> <img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-4.png" width="24%">
+<img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-1.png" width="25%"> <img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-2.png" width="25%"> <img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-3.png" width="25%"> <img src="https://github.com/wst24365888/badfood/blob/main/screenshots/screenshot-4.png" width="25%">
 
-## About this project
+## About
 
 This project is made by DSC NCU(National Central University) for DSC Solution Challenge 2021.
 
-For more information, you can check our demo video.
+For more information, you can check our demo video down in the description.
+
+### Also see
+
+- [Our Backend Repo](https://github.com/kn71026/DSCNCU_SolutionChallenge)
+
+- [Youtube Video of Our Solution](https://www.youtube.com/watch?v=ljVzYSFsSDM)
 
 ## Usage
 
@@ -51,9 +57,9 @@ flutter run
 - Google Map API
 - Laravel
 - Docker
-- Mysql
+- MySQL
 
-## Contributor
+## Contributors
 
 - [Xyphuz Wu](https://github.com/wst24365888)
 - [Yihong Lin](https://github.com/uccuz)
